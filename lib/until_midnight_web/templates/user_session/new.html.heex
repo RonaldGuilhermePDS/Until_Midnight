@@ -1,10 +1,9 @@
-<h1>Log in</h1>
+<h1>Unt Midnight Social</h1>
+<p>Sign In to connect on social network.</p>
 
 <.form let={f} for={@conn} action={Routes.user_session_path(@conn, :create)} as={:user}>
   <%= if @error_message do %>
-    <div class="alert alert-danger">
-      <p><%= @error_message %></p>
-    </div>
+    <p><%= @error_message %></p>
   <% end %>
 
   <%= label f, :email %>
@@ -17,11 +16,11 @@
   <%= checkbox f, :remember_me %>
 
   <div>
-    <%= submit "Log in" %>
+    <%= submit "Sign In" %>
   </div>
 </.form>
 
 <p>
-  <%= link "Register", to: Routes.user_registration_path(@conn, :new) %> |
+  <%= link "SignUp", to: Routes.user_registration_path(@conn, :new) %> |
   <%= link "Forgot your password?", to: Routes.user_reset_password_path(@conn, :new) %>
 </p>

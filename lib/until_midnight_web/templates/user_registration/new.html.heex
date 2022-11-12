@@ -1,26 +1,24 @@
-<h1>Register</h1>
+<h1>Unt Midnight Social</h1>
+<p>Sign Up to connect on social network.</p>
 
-<.form let={f} for={@changeset} action={Routes.user_registration_path(@conn, :create)}>
+<%= form_for @changeset, Routes.user_registration_path(@conn, :create), fn f -> %>
   <%= if @changeset.action do %>
-    <div class="alert alert-danger">
-      <p>Oops, something went wrong! Please check the errors below.</p>
-    </div>
+    <p>Oops, something went wrong! Please check the errors below.</p>
   <% end %>
 
+  <%= label f, :name %>
+  <%= text_input f, :name %>
+  <%= error_tag f, :name %>
+
   <%= label f, :email %>
-  <%= email_input f, :email, required: true %>
+  <%= email_input f, :email %>
   <%= error_tag f, :email %>
 
   <%= label f, :password %>
-  <%= password_input f, :password, required: true %>
+  <%= password_input f, :password %>
   <%= error_tag f, :password %>
 
-  <div>
-    <%= submit "Register" %>
-  </div>
-</.form>
+  <%= submit "Sign up", phx_disable_with: "Sign up....." %>
+<% end %>
 
-<p>
-  <%= link "Log in", to: Routes.user_session_path(@conn, :new) %> |
-  <%= link "Forgot your password?", to: Routes.user_reset_password_path(@conn, :new) %>
-</p>
+<p>Have an account? <%= link "Sign In", to: Routes.user_session_path(@conn, :new) %></p>
