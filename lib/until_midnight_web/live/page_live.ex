@@ -6,7 +6,9 @@ defmodule UntilMidnightWeb.PageLive do
   alias UntilMidnight.Accounts.User
 
   @impl true
-  def mount(_params, _session, socket) do
+  def mount(_params, session, socket) do
+    socket = assign_defaults(session, socket)
+
     changeset = Accounts.change_user_registration(%User{})
 
     {:ok,

@@ -8,6 +8,8 @@ defmodule UntilMidnight.Accounts do
 
   alias UntilMidnight.Accounts.{User, UserToken, UserNotifier}
 
+  alias UntilMidnightWeb.UserAuth
+
   ## Database getters
 
   @doc """
@@ -349,5 +351,19 @@ defmodule UntilMidnight.Accounts do
       {:ok, %{user: user}} -> {:ok, user}
       {:error, :user, changeset, _} -> {:error, changeset}
     end
+  end
+
+  def log_out_user(token) do
+    user = get_user_by_session_token(token)
+    Repo.delete_all(UserToken.user_and_contexts_query(user, :all))
+
+    UntilMidnightWeb.Endpoint.broadcast_from(
+      self(),
+      UserAuth.pubsub_topic(),
+      "logout_user",
+      %{
+        user: user
+      }
+    )
   end
 end

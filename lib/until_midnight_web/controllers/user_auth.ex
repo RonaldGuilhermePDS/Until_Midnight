@@ -5,6 +5,9 @@ defmodule UntilMidnightWeb.UserAuth do
   alias UntilMidnight.Accounts
   alias UntilMidnightWeb.Router.Helpers, as: Routes
 
+  @pubsub_topic "user_updates"
+  def pubsub_topic, do: @pubsub_topic
+
   # Make the remember me cookie valid for 60 days.
   # If you want bump or reduce this value, also change
   # the token expiry itself in UserToken.
@@ -72,7 +75,7 @@ defmodule UntilMidnightWeb.UserAuth do
   """
   def log_out_user(conn) do
     user_token = get_session(conn, :user_token)
-    user_token && Accounts.delete_session_token(user_token)
+    Accounts.log_out_user(user_token)
 
     if live_socket_id = get_session(conn, :live_socket_id) do
       UntilMidnightWeb.Endpoint.broadcast(live_socket_id, "disconnect", %{})
