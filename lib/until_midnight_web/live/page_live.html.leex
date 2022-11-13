@@ -1,25 +1,5 @@
 <%= if @current_user do %>
-  <%= link "Log Out", to: Routes.user_session_path(@socket, :delete), method: :delete %>
-  <h1>User Logged In Homepage</h1>
+  <h1> User Logged in Homepage</h1>
 <% else %>
-  <h1>Until Midnight</h1>
-  <p>Sign In to connect on social network.</p>
-
-  <%= f = form_for @changeset, "#",
-    phx_change: "validate",
-    phx_submit: "save",
-    phx_trigger_action: @trigger_submit
-  %>
-    <%= label f, :email %>
-    <%= email_input f, :email %>
-    <%= error_tag f, :email %>
-
-    <%= label f, :password %>
-    <%= password_input f, :password %>
-    <%= error_tag f, :password %>
-
-    <%= submit "Sign in", phx_disable_with: "Sign in....." %>
-  </form>
-
-  <p>Have an account? <%= link "Sign up", to: Routes.user_session_path(@socket, :new) %></p>
+  <%= live_component @socket, UntilMidnightWeb.PageLiveComponent, changeset: @changeset, trigger_submit: @trigger_submit %>
 <% end %>

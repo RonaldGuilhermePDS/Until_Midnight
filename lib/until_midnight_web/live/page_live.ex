@@ -2,7 +2,6 @@ defmodule UntilMidnightWeb.PageLive do
   use UntilMidnightWeb, :live_view
 
   alias UntilMidnight.Accounts
-
   alias UntilMidnight.Accounts.User
 
   @impl true

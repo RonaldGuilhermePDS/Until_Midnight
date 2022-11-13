@@ -8,15 +8,17 @@
 
   <%= label f, :email %>
   <%= email_input f, :email, required: true %>
+  <%= error_tag f, :email %>
 
   <%= label f, :password %>
   <%= password_input f, :password, required: true %>
+  <%= error_tag f, :password %>
 
   <%= label f, :remember_me, "Keep me logged in for 60 days" %>
   <%= checkbox f, :remember_me %>
 
   <div>
-    <%= submit "Sign In" %>
+    <%= submit "Sign In",  phx_disable_with: "Sign in....." %>
   </div>
 </.form>
 
