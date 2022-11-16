@@ -17,4 +17,4 @@
   <%= submit "Sign in", phx_disable_with: "Sign in....." %>
 </form>
 
-<p>Have an account? <%= link "Sign up", to: Routes.user_session_path(@socket, :new) %></p>
+<p>Have an account? <%= link "Sign up", to: Routes.user_registration_path(@socket, :create) %></p>
