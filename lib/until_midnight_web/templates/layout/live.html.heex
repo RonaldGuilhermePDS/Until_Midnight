@@ -1,4 +1,12 @@
-<main class="container">
+<%= if @current_user do %>
+  <%= live_component UntilMidnightWeb.HeaderComponent, current_user: @current_user %>
+<% else %>
+  <%= if @current_uri_path !== "/" do %>
+    <%= live_component UntilMidnightWeb.HeaderComponent, current_user: @current_user %>
+  <% end %>
+<% end %>
+
+<main class="container mx-auto max-w-full md:w-11/12 pt-24">
   <p class="alert alert-info" role="alert"
     phx-click="lv:clear-flash"
     phx-value-key="info"><%= live_flash(@flash, :info) %></p>
@@ -6,14 +14,6 @@
   <p class="alert alert-danger" role="alert"
     phx-click="lv:clear-flash"
     phx-value-key="error"><%= live_flash(@flash, :error) %></p>
-
-  <%= if @current_user do %>
-    <%= live_component UntilMidnightWeb.HeaderComponent, current_user: @current_user %>
-  <% else %>
-    <%= if @current_uri_path !== "/" do %>
-      <%= live_component UntilMidnightWeb.HeaderComponent, current_user: @current_user %>
-    <% end %>
-  <% end %>
 
   <%= @inner_content %>
 </main>

@@ -38,6 +38,7 @@ defmodule UntilMidnight.Accounts.User do
     |> validate_length(:name, min: 6, max: 30)
     |> validate_format(:name, ~r/^[a-zA-Z0-9_.-]*$/, message: "Please use letters and numbers without space(only characters allowed _ . -)")
     |> unique_constraint(:name)
+    |> unsafe_validate_unique(:name, UntilMidnight.Repo)
     |> validate_email()
     |> validate_password(opts)
   end

@@ -28,6 +28,9 @@
               x-transition:leave-start="opacity-200 transform scale-200"
               x-transition:leave-end="opacity-0 transform scale-200"
             >
+              <%= live_patch to:  Routes.live_path(@socket, UntilMidnightWeb.UserLive.Settings)  do  %>
+                <li class="py-2 px-4 bg-black hover:bg-white text-white hover:text-black">Settings</li>
+              <%  end  %>
               <li class="py-2 px-4 bg-black hover:bg-white text-white hover:text-black"><%= link "Log Out", to: Routes.user_session_path(@socket, :delete), method: :delete %></li>
             </ul>
         <% else %>

@@ -24,8 +24,6 @@ defmodule UntilMidnightWeb.PageLive do
       |> User.registration_changeset(user_params)
       |> Map.put(:action, :validate)
 
-      :timer.sleep(8000)
-
       {:noreply, socket |> assign(changeset: changeset)}
   end
 

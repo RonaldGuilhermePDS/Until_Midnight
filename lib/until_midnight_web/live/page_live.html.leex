@@ -1,5 +1,6 @@
 <%= if @current_user do %>
-  <h1> User Logged in Homepage</h1>
+  <div class="text-center">
+    <h1> User Logged in Homepage</h1>
 <% else %>
-  <%= live_component @socket, UntilMidnightWeb.PageLiveComponent, changeset: @changeset, trigger_submit: @trigger_submit %>
+  <%= live_component UntilMidnightWeb.PageLiveComponent, changeset: @changeset, trigger_submit: @trigger_submit %>
 <% end %>
