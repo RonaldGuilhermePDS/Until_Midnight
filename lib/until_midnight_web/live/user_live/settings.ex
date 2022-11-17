@@ -33,8 +33,8 @@ defmodule UntilMidnightWeb.UserLive.Settings do
       {:ok, _user} ->
         {:noreply,
           socket
-          |> put_flash(:info, "User updated successfully")
-          |> push_redirect(to: Routes.live_path(socket, UntilMidnightWeb.UserLive.Settings))}
+          |> put_flash(:info, "User edited successfully")
+          |> redirect(to: "/")}
 
       {:error, %Ecto.Changeset{} = changeset} ->
         {:noreply, assign(socket, :changeset, changeset)}
