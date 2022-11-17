@@ -11,10 +11,9 @@ module.exports = {
   ],
   theme: {
     extend: {
-      theme: {
-        colors: {
-          black: colors.black
-        }
+      colors: {
+        primary: colors.black,
+        secondary: "#FFB800"
       }
     },
   },

@@ -1,4 +1,4 @@
-<div class="flex fixed bg-black w-full h-18 border-b-2 z-50">
+<div class="flex fixed bg-primary w-full h-18 border-b-2 z-50">
   <header class="flex w-full justify-between items-center mx-5">
     <%= live_patch to: Routes.page_path(@socket, :index) do %>
       <div class="flex items-center w-1/4">
@@ -29,9 +29,9 @@
               x-transition:leave-end="opacity-0 transform scale-200"
             >
               <%= live_patch to:  Routes.live_path(@socket, UntilMidnightWeb.UserLive.Settings)  do  %>
-                <li class="py-2 px-4 bg-black hover:bg-white text-white hover:text-black">Settings</li>
+                <li class="py-2 px-4 bg-primary hover:bg-secondary text-white">Settings</li>
               <%  end  %>
-              <li class="py-2 px-4 bg-black hover:bg-white text-white hover:text-black"><%= link "Log Out", to: Routes.user_session_path(@socket, :delete), method: :delete %></li>
+              <li class="py-2 px-4 bg-primary hover:bg-secondary text-white"><%= link "Log Out", to: Routes.user_session_path(@socket, :delete), method: :delete %></li>
             </ul>
         <% else %>
           <li>
@@ -43,6 +43,5 @@
         <% end %>
       </ul>
     </nav>
-
   </header>
 </div>
