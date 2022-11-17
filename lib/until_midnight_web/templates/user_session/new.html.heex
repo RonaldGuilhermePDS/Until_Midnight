@@ -1,28 +1,26 @@
-<h1>Unt Midnight Social</h1>
-<p>Sign In to connect on social network.</p>
+<h1 class="text-white">Unt Midnight Social</h1>
+<p class="text-white">Sign In to connect on social network.</p>
 
 <.form let={f} for={@conn} action={Routes.user_session_path(@conn, :create)} as={:user}>
   <%= if @error_message do %>
-    <p><%= @error_message %></p>
+    <p class="text-white"><%= @error_message %></p>
   <% end %>
 
-  <%= label f, :email %>
+  <%= label f, :email, class: "text-white" %>
   <%= email_input f, :email, required: true %>
-  <%= error_tag f, :email %>
+  <%= error_tag f, :email, class: "text-white" %>
 
-  <%= label f, :password %>
+  <%= label f, :password, class: "text-white" %>
   <%= password_input f, :password, required: true %>
-  <%= error_tag f, :password %>
+  <%= error_tag f, :password, class: "text-white" %>
 
-  <%= label f, :remember_me, "Keep me logged in for 60 days" %>
+  <%= label f, :remember_me, "Keep me logged in for 60 days", class: "text-white" %>
   <%= checkbox f, :remember_me %>
 
-  <div>
-    <%= submit "Sign In",  phx_disable_with: "Sign in....." %>
-  </div>
+  <%= submit "Sign In",  phx_disable_with: "Sign in.....", class: "text-white" %>
 </.form>
 
 <p>
-  <%= link "SignUp", to: Routes.user_registration_path(@conn, :new) %> |
-  <%= link "Forgot your password?", to: Routes.user_reset_password_path(@conn, :new) %>
+  <%= link "SignUp", to: Routes.user_registration_path(@conn, :new), class: "text-white" %> |
+  <%= link "Forgot your password?", to: Routes.user_reset_password_path(@conn, :new), class: "text-white" %>
 </p>

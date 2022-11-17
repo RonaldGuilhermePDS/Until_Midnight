@@ -1,24 +1,24 @@
-<h1>Unt Midnight Social</h1>
-<p>Sign Up to connect on social network.</p>
+<h1 class="text-white">Unt Midnight Social</h1>
+<p class="text-white">Sign Up to connect on social network.</p>
 
 <%= form_for @changeset, Routes.user_registration_path(@conn, :create), fn f -> %>
   <%= if @changeset.action do %>
-    <p>Oops, something went wrong! Please check the errors below.</p>
+    <p class="text-white">Oops, something went wrong! Please check the errors below.</p>
   <% end %>
 
-  <%= label f, :name %>
+  <%= label f, :name, class: "text-white" %>
   <%= text_input f, :name %>
-  <%= error_tag f, :name %>
+  <%= error_tag f, :name, class: "text-white" %>
 
-  <%= label f, :email %>
+  <%= label f, :email, class: "text-white" %>
   <%= email_input f, :email %>
-  <%= error_tag f, :email %>
+  <%= error_tag f, :email, class: "text-white" %>
 
-  <%= label f, :password %>
+  <%= label f, :password, class: "text-white" %>
   <%= password_input f, :password %>
-  <%= error_tag f, :password %>
+  <%= error_tag f, :password, class: "text-white" %>
 
-  <%= submit "Sign up", phx_disable_with: "Sign up....." %>
+  <%= submit "Sign up", phx_disable_with: "Sign up.....", class: "text-white" %>
 <% end %>
 
-<p>Have an account? <%= link "Sign In", to: Routes.user_session_path(@conn, :new) %></p>
+<p class="text-white">Have an account? <%= link "Sign In", to: Routes.user_session_path(@conn, :new) %></p>

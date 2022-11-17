@@ -1,4 +1,4 @@
-<h1>Until Midnight</h1>
+<h1 class="text-white">Until Midnight</h1>
 <p>Sign In to connect on social network.</p>
 
 <%= f = form_for @changeset, "#",
@@ -6,15 +6,15 @@
   phx_submit: "save",
   phx_trigger_action: @trigger_submit
 %>
-  <%= label f, :email %>
+  <%= label f, :email, class: "text-white" %>
   <%= email_input f, :email %>
-  <%= error_tag f, :email %>
+  <%= error_tag f, :email, class: "text-white" %>
 
-  <%= label f, :password %>
+  <%= label f, :password, class: "text-white" %>
   <%= password_input f, :password %>
-  <%= error_tag f, :password %>
+  <%= error_tag f, :password, class: "text-white" %>
 
-  <%= submit "Sign in", phx_disable_with: "Sign in....." %>
+  <%= submit "Sign in", phx_disable_with: "Sign in.....", class: "text-white" %>
 </form>
 
-<p>Have an account? <%= link "Sign up", to: Routes.user_registration_path(@socket, :create) %></p>
+<p class="text-white">Have an account? <%= link "Sign up", to: Routes.user_registration_path(@socket, :create) %></p>
