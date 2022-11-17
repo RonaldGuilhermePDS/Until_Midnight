@@ -1,5 +1,5 @@
 <%= if @current_user do %>
-  <div class="text-center">
+  <div class="text-center text-white">
     <h1> User Logged in Homepage</h1>
 <% else %>
   <%= live_component UntilMidnightWeb.PageLiveComponent, changeset: @changeset, trigger_submit: @trigger_submit %>
