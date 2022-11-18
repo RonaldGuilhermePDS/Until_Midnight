@@ -76,7 +76,7 @@ defmodule UntilMidnightWeb do
           {:noreply,
           socket
           |> assign(current_uri_path: URI.parse(uri).path)
-          |> assign(user: user, page_title: "#{user.name} (@#{user.name})")}
+          |> assign(user: user, page_title: "@#{user.name}")}
         else
           {:noreply,
             socket

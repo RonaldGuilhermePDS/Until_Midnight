@@ -9,9 +9,24 @@
     <div class="w-3/4 space-y-2">
       <div class="flex">
         <h1 class="text-white text-2xl font-semibold"><%= @user.name %></h1>
-        <button class="text-secondary font-semibold ml-6">
-          Follow
-        </button>
+        <div class="flex items-center ml-4">
+          <%= cond do %>
+            <% @current_user && @current_user == @user -> %>
+              <%= live_patch "Edit Profile",
+                to: Routes.live_path(@socket, UntilMidnightWeb.UserLive.Settings),
+                class: "text-secondary font-semibold" %>
+
+            <% @current_user -> %>
+              <%= live_component UntilMidnightWeb.UserLive.FollowComponent,
+                id: @user.id,
+                follow_btn_name?: @follow_btn_name?,
+                follow_btn_styles?: @follow_btn_styles? %>
+
+            <% true -> %>
+              <%= link "Follow", to: Routes.user_session_path(@socket, :new),
+                class: "text-secondary font-semibold" %>
+          <% end %>
+        </div>
       </div>
 
       <ul class="flex space-x-4">
