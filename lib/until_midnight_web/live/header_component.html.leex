@@ -37,12 +37,10 @@
               <li class="py-2 px-4 bg-primary-1 hover:bg-secondary text-white"><%= link "Log Out", to: Routes.user_session_path(@socket, :delete), method: :delete %></li>
             </ul>
         <% else %>
-          <li>
-            <%= link "Log In", to: Routes.user_session_path(@socket, :new), class: "w-8 h-8 text-white" %>
-          </li>
-          <li>
-            <%= link "Sign Up", to: Routes.user_registration_path(@socket, :new), class: "w-8 h-8 text-white" %>
-        </div>
+          <div class="space-x-2">
+            <%= link "Sign Up", to: Routes.user_registration_path(@socket, :new), class: "w-8 h-8 text-white hover:text-secondary" %>
+            <%= link "Sign In", to: Routes.user_session_path(@socket, :new), class: "w-8 h-8 text-white hover:text-secondary" %>
+          </div>
         <% end %>
       </ul>
     </nav>
