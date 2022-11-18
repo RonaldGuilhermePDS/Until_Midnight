@@ -201,20 +201,11 @@ defmodule UntilMidnight.Accounts do
       {:error, %Ecto.Changeset{}}
 
   """
-  def update_user_password(user, password, attrs) do
-    changeset =
-      user
-      |> User.password_changeset(attrs)
-      |> User.validate_current_password(password)
-
-    Ecto.Multi.new()
-    |> Ecto.Multi.update(:user, changeset)
-    |> Ecto.Multi.delete_all(:tokens, UserToken.user_and_contexts_query(user, :all))
-    |> Repo.transaction()
-    |> case do
-      {:ok, %{user: user}} -> {:ok, user}
-      {:error, :user, changeset, _} -> {:error, changeset}
-    end
+  def  update_user_password(user, password, attrs) do
+    user
+    |> User.password_changeset(attrs)
+    |> User.validate_current_password(password)
+    |> Repo.update()
   end
 
   ## Session

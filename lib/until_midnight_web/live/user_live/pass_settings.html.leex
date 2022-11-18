@@ -1,8 +1,55 @@
-<div class="flex justify-center">
-  <%= live_component @socket, UntilMidnightWeb.UserLive.SettingsSidebarComponent,
+<div x-data="{name: '<%= @current_user.name %>'}" class="flex justify-center">
+  <%= live_component UntilMidnightWeb.UserLive.SettingsSidebarComponent,
     settings_path: @settings_path,
     pass_settings_path: @pass_settings_path,
     current_uri_path: @current_uri_path
   %>
-  <div class="w-11/12 sm:w-8/12 md:w-6/12 lg:w-4/12 bg-primary-1 border border-primary-4 shadow-sm shadow-primary-4"></div>
+  <div class="w-11/12 sm:w-8/12 md:w-6/12 lg:w-4/12 bg-primary-1 border border-primary-4 shadow-sm shadow-primary-4">
+    <div class="flex items-center my-4">
+      <div class="flex w-1/3 justify-center">
+        <%= img_tag Avatar.get_thumb(@current_user.avatar), class: "w-10 h-10 rounded-full object-cover object-center" %>
+      </div>
+      <div class="w-2/3">
+        <h1 x-text="name" class="leading-none font-semibold text-xl text-white"></h1>
+      </div>
+    </div>
+
+    <%= f = form_for @changeset, "#",
+      phx_submit: "save",
+      class: "space-y-6" %>
+      <div class="flex items-center w-full">
+        <div class="flex justify-center w-1/3">
+          <%= label f, :current_password, "Current Password", for: "current_password_for_password", class: "text-white text-center font-semibold" %>
+        </div>
+        <div class="w-2/3">
+          <%= password_input f, :current_password, required: true, class: "w-5/6 rounded p-1 text-semibold text-gray-600 border-none focus:ring-secondary shadow shadow-primary-4" %>
+          <%= error_tag f, :current_password, class:  "text-red-500 pt-2 text-sm block" %>
+        </div>
+      </div>
+
+      <div class="flex items-center w-full">
+        <div class="flex justify-center w-1/3">
+          <%= label f, :password, "New Password", for: "current_password_for_password", class: "text-white text-center font-semibold" %>
+        </div>
+        <div class="w-2/3">
+          <%= password_input f, :password, required: true, class: "w-5/6 rounded p-1 text-semibold text-gray-600 border-none focus:ring-secondary shadow shadow-primary-4" %>
+          <%= error_tag f, :password, class:  "text-red-500 pt-2 text-sm block" %>
+        </div>
+      </div>
+
+      <div class="flex items-center w-full">
+        <div class="flex justify-center w-1/3">
+          <%= label f, :password_confirmation, "Confirm New Password", for: "current_password_for_password", class: "text-white text-center font-semibold text-elipsis" %>
+        </div>
+        <div class="w-2/3">
+          <%= password_input f, :password_confirmation, required: true, class: "w-5/6 rounded p-1 text-semibold text-gray-600 border-none focus:ring-secondary shadow shadow-primary-4" %>
+          <%= error_tag f, :password_confirmation, class:  "text-red-500 pt-2 text-sm block" %>
+        </div>
+      </div>
+
+      <div class="flex justify-end w-full px-12 pb-6">
+        <%= submit "Submit", phx_disable_with: "Saving.....", class: "bg-secondary text-white font-semibold w-2/6 h-10 rounded shadow shadow-primary-4" %>
+      </div>
+    </form>
+  </div>
 </div>
