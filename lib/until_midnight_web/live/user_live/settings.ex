@@ -13,10 +13,14 @@ defmodule UntilMidnightWeb.UserLive.Settings do
 
     changeset = Accounts.change_user(socket.assigns.current_user)
 
+    settings_path = Routes.live_path(socket, __MODULE__)
+    pass_settings_path = Routes.live_path(socket, UntilMidnightWeb.UserLive.PassSettings)
+
     {:ok,
       socket
       |> assign(changeset: changeset)
       |> assign(page_title: "Edit User")
+      |> assign(settings_path: settings_path, pass_settings_path: pass_settings_path)
       |> allow_upload(:avatar,
         accept: @extensions_whitelist,
         max_file_size: 9_000_000,

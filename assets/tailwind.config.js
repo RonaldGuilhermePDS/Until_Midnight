@@ -2,6 +2,7 @@
 
 module.exports = {
   content: [
+    "../lib/**/*.ex",
     "../lib/**/*.eex",
     "../lib/**/*.leex",
     "../lib/**/*.heex",

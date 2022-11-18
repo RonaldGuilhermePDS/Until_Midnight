@@ -121,6 +121,8 @@ defmodule UntilMidnightWeb do
 
       import UntilMidnightWeb.ErrorHelpers
       import UntilMidnightWeb.Gettext
+      import UntilMidnightWeb.RenderHelpers
+
       alias UntilMidnightWeb.Router.Helpers, as: Routes
     end
   end

@@ -80,6 +80,7 @@ defmodule UntilMidnightWeb.Router do
     get "/users/settings/confirm_email/:token", UserSettingsController, :confirm_email
 
     live "/accounts/settings", UserLive.Settings
+    live "/accounts/password", UserLive.PassSettings
   end
 
   scope "/", UntilMidnightWeb do
