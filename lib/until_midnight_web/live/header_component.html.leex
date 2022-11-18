@@ -28,6 +28,9 @@
               x-transition:leave-start="opacity-200 transform scale-200"
               x-transition:leave-end="opacity-0 transform scale-200"
             >
+              <%= live_patch to:  Routes.live_path(@socket, UntilMidnightWeb.UserLive.Profile, @current_user.name)  do  %>
+                <li class="py-2 px-4 bg-primary-1 hover:bg-secondary text-white">Profile</li>
+              <%  end  %>
               <%= live_patch to:  Routes.live_path(@socket, UntilMidnightWeb.UserLive.Settings)  do  %>
                 <li class="py-2 px-4 bg-primary-1 hover:bg-secondary text-white">Settings</li>
               <%  end  %>

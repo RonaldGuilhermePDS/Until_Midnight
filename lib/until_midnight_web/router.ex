@@ -21,6 +21,8 @@ defmodule UntilMidnightWeb.Router do
     pipe_through :browser
 
     live "/", PageLive, :index
+
+    live ":name", UserLive.Profile
   end
 
   # Other scopes may use custom stacks.
