@@ -30,5 +30,9 @@ until_midnight-*.tar
 
 # In case you use Node.js/npm, you want to ignore these.
 npm-debug.log
+
+# Ignore node modules on assets
 /assets/node_modules/
 
+# Ignore uploads images
+/priv/static/uploads

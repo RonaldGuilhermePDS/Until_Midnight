@@ -1,4 +1,4 @@
-<div class="flex fixed w-full h-14 bg-primary border-b-2 border-gray-500 z-50">
+<div class="flex fixed w-full h-14 bg-primary-1 border-b border-primary-4 shadow-sm shadow-primary-4 z-50">
   <header class="flex w-full justify-between items-center mx-4">
 
     <div class="flex justify-start items-center w-1/2">
@@ -6,7 +6,7 @@
         <img src="images/logo.svg" class="w-8 h-8" />
       <% end %>
 
-      <input type="search" placeholder="Search" class="w-2/3 h-8 ml-4 sm:w-2/4 md:w-2/6 rounded-md">
+      <input type="search" placeholder="Search" class="w-2/3 h-8 ml-4 sm:w-2/4 md:w-2/6 rounded-md focus:ring-transparent focus:border-secondary">
     </div>
 
     <nav class="flex justify-end items-center w-1/2">
@@ -16,9 +16,9 @@
             @click="open = true"
             class="flex w-8 h-8 shadow-md rounded-full overflow-hidden cursor-pointer"
           >
-            <img src="assets/user-without-avatar.svg" class="w-full h-full object-cover object-center" />
+            <%=img_tag UntilMidnight.Uploaders.Avatar.get_thumb(@current_user.avatar), class: "w-full h-full object-cover object-center" %>
           </li>
-          <ul class="absolute top-14 -right-4 w-60 bg-white shadow-md text-sm border-l-2 border-r-2 border-b-2 border-gray-500"
+          <ul class="absolute top-14 -right-4 w-60 shadow-md text-sm border-l border-r border-b border-primary-4"
               x-show="open"
               @click.away="open = false"
               x-transition:enter="transition ease-out duration-200"
@@ -29,9 +29,9 @@
               x-transition:leave-end="opacity-0 transform scale-200"
             >
               <%= live_patch to:  Routes.live_path(@socket, UntilMidnightWeb.UserLive.Settings)  do  %>
-                <li class="py-2 px-4 bg-primary hover:bg-secondary text-white">Settings</li>
+                <li class="py-2 px-4 bg-primary-1 hover:bg-secondary text-white">Settings</li>
               <%  end  %>
-              <li class="py-2 px-4 bg-primary hover:bg-secondary text-white"><%= link "Log Out", to: Routes.user_session_path(@socket, :delete), method: :delete %></li>
+              <li class="py-2 px-4 bg-primary-1 hover:bg-secondary text-white"><%= link "Log Out", to: Routes.user_session_path(@socket, :delete), method: :delete %></li>
             </ul>
         <% else %>
           <li>
