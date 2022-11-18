@@ -1,7 +1,5 @@
 /** @type {import('tailwindcss').Config} */
 
-const colors = require("tailwindcss/colors");
-
 module.exports = {
   content: [
     "../lib/**/*.eex",
@@ -12,8 +10,13 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        primary: colors.black,
-        secondary: "#FFB800"
+        primary: {
+          1: "#101010",
+          2: "#181818",
+          3: "#272727",
+          4: "#343434",
+        },
+        secondary: "#FFB800",
       }
     },
   },
