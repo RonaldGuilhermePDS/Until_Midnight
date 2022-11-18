@@ -344,6 +344,9 @@ defmodule UntilMidnight.Accounts do
     end
   end
 
+  @doc """
+  Log out user.
+  """
   def log_out_user(token) do
     user = get_user_by_session_token(token)
     Repo.delete_all(UserToken.user_and_contexts_query(user, :all))
@@ -358,13 +361,26 @@ defmodule UntilMidnight.Accounts do
     )
   end
 
+  @doc """
+  change user
+  """
   def change_user(user, attrs \\  %{}) do
     User.registration_changeset(user, attrs,  register_user:  false)
   end
 
+  @doc """
+  update user
+  """
   def update_user(user, attrs) do
     user
     |> User.registration_changeset(attrs, register_user: false)
     |> Repo.update()
+  end
+
+  @doc """
+  Gets the user with the given name param.
+  """
+  def profile(param) do
+    Repo.get_by!(User, name: param)
   end
 end

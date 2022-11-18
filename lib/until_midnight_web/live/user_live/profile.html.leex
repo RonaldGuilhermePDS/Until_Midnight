@@ -1,1 +1,28 @@
-<h1 class="text-white text-center"><%= @name %></h1>
+<div class="flex mx-2">
+  <header class="flex justify-center items-center w-full bg-primary-1 border border-primary-4 shadow-sm shadow-primary-4 p-2 rounded">
+    <div class="w-1/4">
+      <%= img_tag @user.avatar,
+        class: "w-40 h-40 rounded-full object-cover object-center"
+      %>
+    </div>
+
+    <div class="w-3/4 space-y-2">
+      <div class="flex">
+        <h1 class="text-white text-2xl font-semibold"><%= @user.name %></h1>
+        <button class="text-secondary font-semibold ml-6">
+          Follow
+        </button>
+      </div>
+
+      <ul class="flex space-x-4">
+        <li class="text-white"><b>0</b> Posts</li>
+        <li class="text-white"><b>0</b> Followers</li>
+        <li class="text-white"><b>0</b> Following</li>
+      </ul>
+
+      <%= if @user.bio do %>
+        <p class="max-w-full text-white break-words"><%= @user.bio %></p>
+      <% end %>
+    </div>
+  </header>
+<div>

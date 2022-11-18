@@ -51,6 +51,8 @@ defmodule UntilMidnightWeb do
 
       import UntilMidnightWeb.LiveHelpers
 
+      alias UntilMidnight.Accounts
+
       alias UntilMidnight.Accounts.User
 
       @impl true
@@ -66,11 +68,20 @@ defmodule UntilMidnightWeb do
         end
       end
 
-      def handle_params(_unsigned_params, uri, socket) do
-        {:noreply,
+      @impl true
+      def handle_params(params, uri, socket) do
+        if Map.has_key?(params, "name") do
+          %{"name" => name} = params
+          user = Accounts.profile(name)
+          {:noreply,
           socket
           |> assign(current_uri_path: URI.parse(uri).path)
-        }
+          |> assign(user: user, page_title: "#{user.name} (@#{user.name})")}
+        else
+          {:noreply,
+            socket
+            |> assign(current_uri_path: URI.parse(uri).path)}
+        end
       end
     end
   end
