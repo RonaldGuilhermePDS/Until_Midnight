@@ -69,7 +69,7 @@ defmodule UntilMidnightWeb.UserLive.Settings do
       {:ok, _user} ->
         {:noreply,
           socket
-          |> put_flash(:info, "User edited successfully")
+          |> put_flash(:info, "User updated successfully")
           |> redirect(to: "/")}
 
       {:error, %Ecto.Changeset{} = changeset} ->
