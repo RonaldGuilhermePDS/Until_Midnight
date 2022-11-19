@@ -10,10 +10,11 @@
       <% end %>
 
       <div class="ml-3">
-        <%= live_redirect  follow.followed.name,
+        <%= live_redirect follow.followed.name,
           to: Routes.user_profile_path(@socket, :index, follow.followed.name),
-          class: " text-white text-sm font-semibold truncate hover:underline" %>
+          class: "text-white text-sm font-semibold truncate hover:underline" %>
       </div>
+
       <%= if @current_user !== follow.followed do %>
         <span class="ml-auto">
           <%= live_component UntilMidnightWeb.UserLive.FollowComponent,

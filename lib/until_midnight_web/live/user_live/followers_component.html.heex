@@ -10,7 +10,7 @@
       <% end %>
 
       <div class="ml-4">
-        <%= live_redirect  follow.follower.name,
+        <%= live_redirect follow.follower.name,
           to: Routes.user_profile_path(@socket, :index, follow.follower.name),
           class: "text-white text-sm font-semibold truncate hover:underline" %>
       </div>
