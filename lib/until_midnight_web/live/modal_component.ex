@@ -5,15 +5,14 @@ defmodule UntilMidnightWeb.ModalComponent do
   def render(assigns) do
     ~H"""
     <div
-      class="fixed top-0 left-0 flex items-center justify-center w-full h-screen bg-black bg-opacity-40 z-50"
+      class="fixed top-0 left-0 flex items-center justify-center w-full h-screen bg-primary-1 bg-opacity-50 z-50"
       phx-capture-click="close"
       phx-window-keydown="close"
       phx-key="escape"
       phx-target={@myself}
       phx-page-loading>
 
-      <div class={"#{@width} h-auto bg-white rounded-xl shadow-xl"}>
-        <%= live_patch raw("&times;"), to: @return_to, class: "float-right text-gray-500 text-4xl px-4" %>
+      <div class={"#{@width} h-auto bg-white rounded-lg"}>
         <%= live_component @component, @opts %>
       </div>
     </div>
