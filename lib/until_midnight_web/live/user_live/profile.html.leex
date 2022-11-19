@@ -10,29 +10,32 @@
       <div class="flex">
         <h1 class="text-white text-2xl font-semibold"><%= @user.name %></h1>
         <div class="flex items-center ml-4">
-          <%= cond do %>
-            <% @current_user && @current_user == @user -> %>
-              <%= live_patch "Edit Profile",
-                to: Routes.live_path(@socket, UntilMidnightWeb.UserLive.Settings),
-                class: "text-secondary font-semibold" %>
 
-            <% @current_user -> %>
-              <%= live_component UntilMidnightWeb.UserLive.FollowComponent,
-                id: @user.id,
-                follow_btn_name?: @follow_btn_name?,
-                follow_btn_styles?: @follow_btn_styles? %>
+          <%= if @my_action in [:edit_profile] do %>
+            <%= live_patch "Edit Profile",
+              to: Routes.live_path(@socket, UntilMidnightWeb.UserLive.Settings),
+              class: "text-secondary font-semibold" %>
+          <% end %>
 
-            <% true -> %>
-              <%= link "Follow", to: Routes.user_session_path(@socket, :new),
-                class: "text-secondary font-semibold" %>
+          <%= if @my_action in [:follow_component] do %>
+            <%= live_component UntilMidnightWeb.UserLive.FollowComponent,
+              id: @user.id,
+              user: @user,
+              current_user: @current_user %>
+          <% end %>
+
+          <%= if @my_action in [:login_btn] do %>
+            <%= link "Follow",
+              to: Routes.user_session_path(@socket, :new),
+              class: "text-secondary font-semibold" %>
           <% end %>
         </div>
       </div>
 
       <ul class="flex space-x-4">
         <li class="text-white"><b>0</b> Posts</li>
-        <li class="text-white"><b>0</b> Followers</li>
-        <li class="text-white"><b>0</b> Following</li>
+        <li class="text-white"><b><%=  @user.followers_count %></b> Followers</li>
+        <li class="text-white"><b><%=  @user.following_count %></b> Following</li>
       </ul>
 
       <%= if @user.bio do %>

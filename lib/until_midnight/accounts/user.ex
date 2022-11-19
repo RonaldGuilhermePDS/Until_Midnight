@@ -2,10 +2,17 @@ defmodule UntilMidnight.Accounts.User do
   use Ecto.Schema
   import Ecto.Changeset
 
+  alias UntilMidnight.Accounts.Follows
+
+  @derive {Inspect,  except:  [:password]}
   schema "users" do
     field :name, :string
     field :avatar, :string, default: "images/user-without-avatar.png"
     field :bio, :string
+    field :followers_count, :integer, default: 0
+    field :following_count, :integer, default: 0
+    has_many :following, Follows,  foreign_key:  :follower_id
+    has_many :followers, Follows,  foreign_key:  :followed_id
     field :email, :string
     field :password, :string, virtual: true, redact: true
     field :hashed_password, :string, redact: true

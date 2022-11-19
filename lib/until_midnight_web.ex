@@ -69,19 +69,10 @@ defmodule UntilMidnightWeb do
       end
 
       @impl true
-      def handle_params(params, uri, socket) do
-        if Map.has_key?(params, "name") do
-          %{"name" => name} = params
-          user = Accounts.profile(name)
-          {:noreply,
+      def handle_params(_params, uri, socket) do
+        {:noreply,
           socket
-          |> assign(current_uri_path: URI.parse(uri).path)
-          |> assign(user: user, page_title: "@#{user.name}")}
-        else
-          {:noreply,
-            socket
-            |> assign(current_uri_path: URI.parse(uri).path)}
-        end
+          |> assign(current_uri_path: URI.parse(uri).path)}
       end
     end
   end
