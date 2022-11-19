@@ -21,6 +21,13 @@ defmodule UntilMidnightWeb.UserLive.PassSettings do
   end
 
   @impl true
+  def handle_params(_params, uri, socket) do
+    {:noreply,
+      socket
+      |> assign(current_uri_path: URI.parse(uri).path)}
+  end
+
+  @impl true
   def handle_event("save", %{"user" => params}, socket) do
     %{"current_password" => password} = params
     case Accounts.update_user_password(socket.assigns.current_user, password, params) do

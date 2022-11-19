@@ -30,17 +30,10 @@ defmodule UntilMidnightWeb.UserLive.Settings do
   end
 
   @impl true
-  def handle_event("validate", %{"user" => user_params}, socket) do
-    changeset =
-      socket.assigns.current_user
-      |> Accounts.change_user(user_params)
-      |> Map.put(:action, :validate)
-
-    {:noreply, socket |> assign(changeset: changeset)}
-  end
-
-  def handle_event("upload_avatar", _params, socket) do
-    {:noreply, socket}
+  def handle_params(_params, uri, socket) do
+    {:noreply,
+      socket
+      |> assign(current_uri_path: URI.parse(uri).path)}
   end
 
   defp handle_progress(:avatar, entry, socket) do
@@ -64,6 +57,19 @@ defmodule UntilMidnightWeb.UserLive.Settings do
   end
 
   @impl true
+  def handle_event("validate", %{"user" => user_params}, socket) do
+    changeset =
+      socket.assigns.current_user
+      |> Accounts.change_user(user_params)
+      |> Map.put(:action, :validate)
+
+    {:noreply, socket |> assign(changeset: changeset)}
+  end
+
+  def handle_event("upload_avatar", _params, socket) do
+    {:noreply, socket}
+  end
+
   def handle_event("save", %{"user" => user_params}, socket) do
     case Accounts.update_user(socket.assigns.current_user, user_params) do
       {:ok, _user} ->
