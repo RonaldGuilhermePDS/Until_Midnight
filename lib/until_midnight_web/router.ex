@@ -23,6 +23,8 @@ defmodule UntilMidnightWeb.Router do
     live "/", PageLive, :index
 
     live "/:name", UserLive.Profile, :index
+
+    live "/posts/:id", PostLive.Show
   end
 
   # Other scopes may use custom stacks.
@@ -86,6 +88,8 @@ defmodule UntilMidnightWeb.Router do
 
     live "/:name/following", UserLive.Profile, :following
     live "/:name/followers", UserLive.Profile, :followers
+
+    live "/posts/new", PostLive.New
   end
 
   scope "/", UntilMidnightWeb do

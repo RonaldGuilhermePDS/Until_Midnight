@@ -9,8 +9,13 @@
     </div>
 
     <nav class="flex justify-end items-center w-1/2">
-      <ul x-data="{open: false}">
+      <ul x-data="{open: false}" class="flex space-x-6">
         <%= if @current_user do %>
+          <li>
+            <%= live_redirect to: Routes.live_path(@socket, UntilMidnightWeb.PostLive.New) do %>
+              <%= Heroicons.icon("plus-circle", type: "outline", class: "text-white h-8 w-8") %>
+            <% end %>
+          </li>
           <li
             @click="open = true"
             class="flex w-8 h-8 shadow-md rounded-full overflow-hidden cursor-pointer"
