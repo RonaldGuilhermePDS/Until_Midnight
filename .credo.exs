@@ -74,7 +74,7 @@
           {Credo.Check.Consistency.ParameterPatternMatching, []},
           {Credo.Check.Consistency.SpaceAroundOperators, []},
           {Credo.Check.Consistency.SpaceInParentheses, []},
-          {Credo.Check.Consistency.TabsOrSpaces, []},
+          {Credo.Check.Consistency.TabsOrSpaces, false},
 
           #
           ## Design Checks

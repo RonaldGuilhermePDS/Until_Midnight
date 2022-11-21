@@ -60,7 +60,7 @@ config :until_midnight, UntilMidnightWeb.Endpoint,
 config :until_midnight, UntilMidnightWeb.Endpoint,
   live_reload: [
     patterns: [
-      ~r"priv/static/.*(js|css|png|jpeg|jpg|gif|svg)$",
+      ~r"priv/static/[^uploads].*(js|css|png|jpeg|jpg|gif|svg)$",
       ~r"priv/gettext/.*(po)$",
       ~r"lib/until_midnight_web/(live|views)/.*(ex)$",
       ~r"lib/until_midnight_web/templates/.*(eex)$"

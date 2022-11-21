@@ -1,12 +1,14 @@
 defmodule UntilMidnightWeb.PostLive.Show do
   use UntilMidnightWeb, :live_view
 
-  @impl true
-  def mount(_params, session, socket) do
-    socket = assign_defaults(session, socket)
+  alias UntilMidnight.Posts
+  alias UntilMidnight.Uploaders.Avatar
 
-    {:ok,
-      socket
-      |> assign(page_title: "Show Post")}
+  @impl true
+  def mount(%{"id" => id}, session, socket) do
+    socket = assign_defaults(session, socket)
+    post = Posts.get_post_by_url!(URI.decode(id))
+
+    {:ok, socket |> assign(post: post)}
   end
 end

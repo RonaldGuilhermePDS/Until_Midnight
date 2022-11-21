@@ -1,0 +1,41 @@
+<div class="flex flex-col w-1/2 mx-auto bg-primary-1 border border-primary-4 shadow shadow-primary-4 p-4 rounded">
+  <h1 class="text-white text-xl text-center font-bold"><%= @page_title %></h1>
+
+  <%= f = form_for @changeset, "#",
+    phx_change: "validate",
+    phx_submit: "save" %>
+    <div class="flex-col space-y-2">
+      <%= label f, :description, class: "text-white font-semibold mb-2" %>
+      <div>
+        <%= textarea f, :description, class: "w-full p-1 text-semibold text-gray-600 border-none focus:ring-secondary shadow shadow-primary-4 rounded", rows: 5 %>
+        <%= error_tag f, :description, class: "text-red-500 pt-2 text-sm block" %>
+      <div>
+    </div>
+
+      <div class="flex-col space-y-2">
+        <%= for {_ref, err} <- @uploads.photo_url.errors do %>
+          <p class="alert alert-danger"><%= Phoenix.Naming.humanize(err) %></p>
+        <% end %>
+
+        <div class="flex items-center space-x-2">
+          <%= for entry <- @uploads.photo_url.entries do %>
+              <%= live_img_preview entry, height: 150, width: 150, class: "mt-2" %>
+              <a href="#" phx-click="cancel-entry" phx-value-ref="<%= entry.ref %>" class="">
+                <%= Heroicons.icon("x-circle", type: "outline", class: "text-red-500 h-8 w-8") %>
+              </a>
+          <% end %>
+        </div>
+
+        <div class="relative" phx-drop-target="<%= @uploads.photo_url.ref %>">
+          <%= live_file_input @uploads.photo_url, class: "relative block cursor-pointer w-8 opacity-0 z-50" %>
+          <div class="absolute -top-1 left-0">
+            <%= Heroicons.icon("photo", type: "outline", class: "text-white h-8 w-8") %>
+          </div>
+        </div>
+      </div>
+
+    <div class="flex justify-end w-full">
+      <%= submit "New Post", phx_disable_with: "Creating...", class: "bg-secondary text-white font-semibold w-1/6 h-10 rounded shadow shadow-primary-4" %>
+    </div>
+  </form>
+</div>

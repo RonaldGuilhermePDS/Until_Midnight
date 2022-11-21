@@ -1,0 +1,28 @@
+<div class="flex justify-center w-11/12 mx-auto bg-primary-1 border border-primary-4 shadow shadow-primary-4">
+  <div class="flex flex-col">
+    <div class="border-b border-primary-4 space-y-2 p-4">
+      <div class="flex items-center space-x-4">
+        <%= live_redirect to: Routes.user_profile_path(@socket, :index, @post.user.name) do %>
+          <%= img_tag @post.user.avatar, class: "w-8 h-8 rounded-full object-cover object-center" %>
+        <% end %>
+
+        <%= live_redirect @post.user.name,
+          to: Routes.user_profile_path(@socket, :index, @post.user.name),
+          class: "text-white text-sm font-bold truncate hover:underline"
+        %>
+
+        <div class="text-white text-xs"><%= Timex.from_now @post.inserted_at %></div>
+      </div>
+
+      <div class="overflow-y-scroll no-scrollbar">
+        <%= if @post.description do %>
+          <span class="text-white text-sm">
+            <p class="inline"><%= @post.description %></p></span>
+          </span>
+        <% end %>
+      </div>
+    </div>
+
+    <%= img_tag @post.photo_url, class: "w-full object-contain p-2" %>
+  </div>
+</div>

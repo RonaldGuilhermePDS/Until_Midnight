@@ -7,12 +7,14 @@ defmodule UntilMidnight.Accounts.User do
   @derive {Inspect,  except:  [:password]}
   schema "users" do
     field :name, :string
-    field :avatar, :string, default: "images/user-without-avatar.png"
+    field :avatar, :string, default: "images/user-without-avatar.svg"
     field :bio, :string
     field :followers_count, :integer, default: 0
     field :following_count, :integer, default: 0
     has_many :following, Follows,  foreign_key:  :follower_id
     has_many :followers, Follows,  foreign_key:  :followed_id
+    field :posts_count,  :integer,  default:  0
+    has_many :posts, UntilMidnight.Posts.Post
     field :email, :string
     field :password, :string, virtual: true, redact: true
     field :hashed_password, :string, redact: true

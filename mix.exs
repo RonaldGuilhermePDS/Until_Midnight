@@ -53,6 +53,7 @@ defmodule UntilMidnight.MixProject do
       {:tailwind, "~> 0.1", runtime: Mix.env() == :dev},
       {:ex_heroicons, "~> 2.0.0"},
       {:mogrify, "~> 0.9.2"},
+      {:timex, "~> 3.7"},
       {:credo, "~> 1.6", only: [:dev, :test], runtime: false}
     ]
   end

@@ -83,13 +83,13 @@ defmodule UntilMidnightWeb.Router do
     put "/users/settings", UserSettingsController, :update
     get "/users/settings/confirm_email/:token", UserSettingsController, :confirm_email
 
-    live "/accounts/settings", UserLive.Settings
-    live "/accounts/password", UserLive.PassSettings
+    live "/account/settings", UserLive.Settings
+    live "/account/password", UserLive.PassSettings
 
     live "/:name/following", UserLive.Profile, :following
     live "/:name/followers", UserLive.Profile, :followers
 
-    live "/posts/new", PostLive.New
+    live "/post/new", PostLive.New
   end
 
   scope "/", UntilMidnightWeb do
