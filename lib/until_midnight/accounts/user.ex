@@ -15,6 +15,7 @@ defmodule UntilMidnight.Accounts.User do
     has_many :followers, Follows,  foreign_key:  :followed_id
     field :posts_count,  :integer,  default:  0
     has_many :posts, UntilMidnight.Posts.Post
+    has_many :likes, UntilMidnight.Likes.Like
     field :email, :string
     field :password, :string, virtual: true, redact: true
     field :hashed_password, :string, redact: true

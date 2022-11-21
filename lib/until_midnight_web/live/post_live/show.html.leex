@@ -1,5 +1,5 @@
 <div class="flex justify-center w-11/12 mx-auto bg-primary-1 border border-primary-4 shadow shadow-primary-4">
-  <div class="flex flex-col">
+  <div class="flex flex-col w-4/6">
     <div class="border-b border-primary-4 space-y-2 p-4">
       <div class="flex items-center space-x-4">
         <%= live_redirect to: Routes.user_profile_path(@socket, :index, @post.user.name) do %>
@@ -24,5 +24,50 @@
     </div>
 
     <%= img_tag @post.photo_url, class: "w-full object-contain p-2" %>
+  </div>
+
+  <div class="flex flex-col w-2/6 border-l border-primary-4">
+    <div class="h-3/4 no-scrollbar overflow-y-scroll">
+    </div>
+
+    <div class="w-full space-y-2">
+      <div class="flex px-4 space-x-2">
+        <%= if @current_user do %>
+          <%= live_component UntilMidnightWeb.PostLive.LikeComponent,
+              id: @post.id,
+              liked: @post,
+              current_user: @current_user %>
+        <% else %>
+          <%= link to: Routes.user_session_path(@socket, :new) do %>
+            <%= Heroicons.icon("hand-thumb-up", type: "outline", class: "text-white h-8 w-8 cursor-pointer") %>
+          <% end %>
+        <% end %>
+        <%= Heroicons.icon("chat-bubble-oval-left-ellipsis", type: "outline", class: "text-white h-8 w-8 cursor-pointer") %>
+        <%= Heroicons.icon("share", type: "outline", class: "text-white h-8 w-8 cursor-pointer") %>
+        <%= Heroicons.icon("bookmark-square", type: "outline", class: "text-white h-8 w-8 cursor-pointer") %>
+      </div>
+
+      <div class="flex px-4">
+        <button class="text-white text-xs font-bold focus:outline-none"><%= @post.total_likes %> likes</button>
+      </div>
+
+      <div class="flex px-4">
+        <h1 class="text-white text-xs font-bold focus:outline-none"><%= Timex.format!(@post.inserted_at, "{Mfull} {D}, {YYYY}") %></h1>
+      </div>
+
+
+      <div class="flex p-2 space-x-2">
+        <textarea
+          autocomplete="off"
+          autocorrect="off"
+          aria-label="Send a comment....."
+          placeholder="Send a comment....."
+          rows="1"
+          class="resize-none w-4/6 rounded text-semibold text-gray-600 border-none focus:ring-secondary shadow shadow-primary-4"
+        >
+        </textarea>
+        <button class="bg-secondary text-white font-semibold w-2/6 h-10 rounded shadow shadow-primary-4">Send</button>
+      </div>
+    </div>
   </div>
 </div>
