@@ -1,4 +1,4 @@
-<div class="flex justify-center w-11/12 mx-auto bg-primary-1 border border-primary-4 shadow shadow-primary-4">
+<div class="flex w-11/12 h-full mx-auto bg-primary-1 border border-primary-4 shadow shadow-primary-4">
   <div class="flex flex-col w-4/6">
     <div class="border-b border-primary-4 space-y-2 p-4">
       <div class="flex items-center space-x-4">
@@ -14,29 +14,40 @@
         <div class="text-white text-xs"><%= Timex.from_now @post.inserted_at %></div>
       </div>
 
-      <div class="overflow-y-scroll no-scrollbar">
-        <%= if @post.description do %>
-          <span class="text-white text-sm">
-            <p class="inline"><%= @post.description %></p></span>
-          </span>
-        <% end %>
-      </div>
+      <%= if @post.description do %>
+        <span class="text-white text-sm text-clip">
+          <p class="inline break-words"><%= @post.description %></p></span>
+        </span>
+      <% end %>
     </div>
 
     <%= img_tag @post.photo_url, class: "w-full object-contain p-2" %>
   </div>
 
-  <div class="flex flex-col w-2/6 border-l border-primary-4">
-    <div class="h-3/4 no-scrollbar overflow-y-scroll">
+  <div class="flex flex-col justify-between w-2/6 border-l border-primary-4 py-2">
+    <div id="comments" phx-update="<%= @comments_section_update %>" class="h-40 md:h-64 lg:h-72 xl:h-96 overflow-y-scroll no-scrollbar px-2">
+      <%= for comment <- @comments do %>
+        <%= live_component UntilMidnightWeb.PostLive.CommentComponent,
+          id: comment.id,
+          current_user: @current_user,
+          comment: comment %>
+      <% end %>
     </div>
 
-    <div class="w-full space-y-2">
-      <div class="flex px-4 space-x-2">
+    <button
+      class="w-full <%= @load_more_comments_btn %> justify-center pb-1"
+      phx-click="load-more-comments">
+      <%= Heroicons.icon("plus-circle", type: "outline", class: "text-white h-8 w-8 cursor-pointer") %>
+    </button>
+
+    <div class="space-y-2 border-t border-primary-4 p-2">
+      <div class="flex space-x-2">
         <%= if @current_user do %>
           <%= live_component UntilMidnightWeb.PostLive.LikeComponent,
               id: @post.id,
               liked: @post,
-              current_user: @current_user %>
+              current_user: @current_user,
+              w_h: "w-8 h-8" %>
         <% else %>
           <%= link to: Routes.user_session_path(@socket, :new) do %>
             <%= Heroicons.icon("hand-thumb-up", type: "outline", class: "text-white h-8 w-8 cursor-pointer") %>
@@ -47,27 +58,55 @@
         <%= Heroicons.icon("bookmark-square", type: "outline", class: "text-white h-8 w-8 cursor-pointer") %>
       </div>
 
-      <div class="flex px-4">
-        <button class="text-white text-xs font-bold focus:outline-none"><%= @post.total_likes %> likes</button>
-      </div>
+      <button class="text-white text-xs font-bold focus:outline-none"><%= @post.total_likes %> likes</button>
 
-      <div class="flex px-4">
-        <h1 class="text-white text-xs font-bold focus:outline-none"><%= Timex.format!(@post.inserted_at, "{Mfull} {D}, {YYYY}") %></h1>
-      </div>
-
-
-      <div class="flex p-2 space-x-2">
-        <textarea
-          autocomplete="off"
-          autocorrect="off"
-          aria-label="Send a comment....."
-          placeholder="Send a comment....."
-          rows="1"
-          class="resize-none w-4/6 rounded text-semibold text-gray-600 border-none focus:ring-secondary shadow shadow-primary-4"
-        >
-        </textarea>
-        <button class="bg-secondary text-white font-semibold w-2/6 h-10 rounded shadow shadow-primary-4">Send</button>
-      </div>
+      <h1 class="text-white text-xs font-bold focus:outline-none"><%= Timex.format!(@post.inserted_at, "{Mfull} {D}, {YYYY}") %></h1>
     </div>
+
+    <%= if @current_user do %>
+      <%= f = form_for @changeset, "#",
+        phx_submit: "save",
+        x_data: "{
+          disableSubmit: true,
+          inputText: null,
+          displayCommentBtn: (refs) => {
+            refs.cbtn.classList.remove('opacity-30')
+            refs.cbtn.classList.remove('cursor-not-allowed')
+          },
+          disableCommentBtn: (refs) => {
+            refs.cbtn.classList.add('opacity-30')
+            refs.cbtn.classList.add('cursor-not-allowed')
+          }
+        }" %>
+        <div class="flex space-x-2 px-2">
+          <%= textarea f, :body,
+            autocorrect: "off",
+            autocomplete: "off",
+            aria_label: "Send a comment.....",
+            placeholder: "Send a comment.....",
+            rows: 1,
+            x_model: "inputText",
+            "@input": "[
+              (inputText.length != 0) ? [disableSubmit = false, displayCommentBtn($refs)] : [disableSubmit = true, disableCommentBtn($refs)]
+            ]",
+            class: "resize-none w-4/6 rounded text-semibold text-primary-4 border-none focus:ring-secondary shadow shadow-primary-4" %>
+          <%= submit "Send",
+            phx_disable_with: "Sending.....",
+            x_ref: "cbtn",
+            "@click": "inputText = null",
+            "x_bind:disabled": "disableSubmit",
+            class: "bg-secondary text-white font-semibold w-2/6 h-10 rounded shadow shadow-primary-4" %>
+        </div>
+      </form>
+    <% else %>
+      <div class="flex px-4 space-x-2">
+        <%= link "Sign In to send a comment.....",
+          to: Routes.user_session_path(@socket, :new),
+          class: "flex justify-center items-center bg-white w-4/6 rounded text-semibold text-primary-4" %>
+        <%= link "Sign In",
+          to: Routes.user_session_path(@socket, :new),
+          class: "flex justify-center items-center bg-secondary text-white font-semibold w-2/6 h-10 rounded shadow shadow-primary-4" %>
+      </div>
+    <% end %>
   </div>
 </div>

@@ -9,6 +9,7 @@ defmodule UntilMidnight.Posts.Post do
     field :total_likes, :integer, default: 0
     field :total_comments, :integer, default: 0
     has_many :likes, UntilMidnight.Likes.Like, foreign_key: :liked_id
+    has_many :comments, UntilMidnight.Comments.Comment
     belongs_to :user, UntilMidnight.Accounts.User
 
     timestamps()

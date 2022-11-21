@@ -14,7 +14,7 @@ defmodule UntilMidnightWeb.PostLive.LikeComponent do
     <button
       phx-target={@myself}
       phx-click="toggle-status"
-      class="w-8 h-8 focus:outline-none">
+      class={"#{@w_h} focus:outline-none"}>
       <%= @icon %>
     </button>
     """
@@ -85,13 +85,13 @@ defmodule UntilMidnightWeb.PostLive.LikeComponent do
 
   defp like_icon(assigns) do
     ~H"""
-      <%= Heroicons.icon("hand-thumb-up", type: "outline", class: "text-white h-8 w-8 cursor-pointer") %>
+      <%= Heroicons.icon("hand-thumb-up", type: "outline", class: "text-white cursor-pointer") %>
     """
   end
 
   defp unlike_icon(assigns) do
     ~H"""
-      <%= Heroicons.icon("hand-thumb-up", type: "solid", class: "text-white h-8 w-8 cursor-pointer") %>
+      <%= Heroicons.icon("hand-thumb-up", type: "solid", class: "text-white cursor-pointer") %>
     """
   end
 
