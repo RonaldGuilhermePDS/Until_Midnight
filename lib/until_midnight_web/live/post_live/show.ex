@@ -2,7 +2,6 @@ defmodule UntilMidnightWeb.PostLive.Show do
   use UntilMidnightWeb, :live_view
 
   alias UntilMidnight.Posts
-  alias UntilMidnight.Uploaders.Avatar
 
   @impl true
   def mount(%{"id" => id}, session, socket) do

@@ -1,5 +1,5 @@
 <%= if @live_action == :following do %>
-  <%= live_modal @socket, UntilMidnightWeb.UserLive.Profile.FollowingComponent,
+  <%= live_modal UntilMidnightWeb.UserLive.Profile.FollowingComponent,
     id: @user.id || :following,
     width:  "w-1/4",
     current_user: @current_user,
@@ -8,7 +8,7 @@
 <% end %>
 
 <%= if @live_action == :followers do %>
-  <%= live_modal @socket, UntilMidnightWeb.UserLive.Profile.FollowersComponent,
+  <%= live_modal UntilMidnightWeb.UserLive.Profile.FollowersComponent,
     id: @user.id || :followers,
     width:  "w-1/4",
     current_user: @current_user,

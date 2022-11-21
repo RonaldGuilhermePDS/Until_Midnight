@@ -9,10 +9,10 @@ defmodule UntilMidnightWeb.RenderHelpers do
     "text-white"
   end
 
-  def live_modal(socket, component, opts) do
+  def live_modal(component, opts) do
     path = Keyword.fetch!(opts, :return_to)
     width = Keyword.fetch!(opts,  :width)
     modal_opts = [id: :modal, return_to: path, width: width, component: component, opts: opts]
-    live_component(socket, UntilMidnightWeb.ModalComponent, modal_opts)
+    live_component(UntilMidnightWeb.ModalComponent, modal_opts)
   end
 end
