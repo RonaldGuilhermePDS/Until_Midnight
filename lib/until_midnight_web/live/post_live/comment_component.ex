@@ -7,15 +7,15 @@ defmodule UntilMidnightWeb.PostLive.CommentComponent do
   def render(assigns) do
     ~H"""
     <div class="flex flex-col py-2" id={"comment-#{@comment.id}"}>
-      <div class="flex items-center">
-        <div class="w-1/12">
+      <div class="flex items-start">
+        <div class="w-2/12">
           <%= live_redirect to: Routes.user_profile_path(@socket, :index, @comment.user.name) do %>
             <%= img_tag Avatar.get_thumb(@comment.user.avatar),
               class: "w-8 h-8 rounded-full object-cover object-center" %>
           <% end %>
         </div>
 
-        <div class="w-11/12">
+        <div class="w-10/12">
           <div class="flex justify-between items-center">
             <%= live_redirect @comment.user.name,
               to: Routes.user_profile_path(@socket, :index, @comment.user.name),
@@ -27,7 +27,7 @@ defmodule UntilMidnightWeb.PostLive.CommentComponent do
           </div>
 
           <span class="text-white text-sm">
-            <p class="inline break-words">
+            <p class="inline break-all">
               <%= @comment.body %>
             </p>
           </span>
