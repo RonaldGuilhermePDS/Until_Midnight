@@ -31,12 +31,12 @@ defmodule UntilMidnight.Uploaders.Avatar do
     :ok
   end
 
-  def get_thumb(avatar_url) when avatar_url == "/assets/user-without-avatar.svg" do
-    avatar_url
+  def get_thumb(avatar) when avatar == "assets/user-without-avatar.svg" do
+    avatar
   end
 
-  def get_thumb(avatar_url) do
-    file_name = String.replace_leading(avatar_url, "/uploads/", "")
+  def get_thumb(avatar) do
+    file_name = String.replace_leading(avatar, "/uploads/", "")
     ["/#{@upload_directory_name}", "thumb_#{file_name}"] |> Path.join()
   end
 
