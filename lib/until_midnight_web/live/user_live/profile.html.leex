@@ -29,7 +29,6 @@
         <div class="flex">
           <h1 class="text-white text-2xl font-semibold"><%= @user.name %></h1>
           <div class="flex items-center ml-4">
-
             <%= if @live_action  == :edit_profile do %>
               <%= live_patch "Edit Profile",
                 to: Routes.live_path(@socket, UntilMidnightWeb.UserLive.Settings),
