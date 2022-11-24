@@ -1,6 +1,22 @@
 <%= if @current_user do %>
-  <div class="flex">
-    <section id="some-section" class="w-3/12"></section>
+  <div class="flex w-11/12 mx-auto">
+    <section id="profile-section" class="w-4/12">
+      <div class="bg-primary-1 w-11/12 py-2 space-y-2 mx-auto border border-primary-4 rounded">
+        <div class="w-32 h-32 mx-auto shadow-md rounded-full overflow-hidden cursor-pointer">
+          <%=img_tag UntilMidnight.Uploaders.Avatar.get_thumb(@current_user.avatar), class: "w-full h-full oject-cover object-center" %>
+        </div>
+
+        <ul class="flex justify-center w-11/12 mx-auto space-x-4">
+          <li class="text-white truncate"><b><%= @current_user.posts_count %></b> Posts</li>
+          <li class="text-white truncate"><b><%=  @current_user.followers_count %></b> Followers</li>
+          <li class="text-white truncate"><b><%=  @current_user.following_count %></b> Following</li>
+        </ul>
+
+        <%= if @current_user.bio do %>
+          <p class="flex justify-center w-11/12 mx-auto text-white truncate break-all"><%= @current_user.bio %></p>
+        <% end %>
+      </div>
+    </section>
 
     <section id="user-feed" phx-update="append" class="w-6/12">
       <%= for post <- @user_feed do %>
@@ -11,7 +27,7 @@
       <% end %>
     </section>
 
-    <section id="user-suggestions" class="w-3/12">
+    <section id="user-suggestions" class="w-4/12">
       <div class="bg-primary-1 w-11/12 mx-auto border border-primary-4 rounded">
         <h1 class="text-white text-center font-semibold py-2">Suggestions for you</h1>
 
