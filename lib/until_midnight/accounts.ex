@@ -4,12 +4,10 @@ defmodule UntilMidnight.Accounts do
   """
 
   import Ecto.Query, warn: false
+
   alias UntilMidnight.Repo
-
   alias UntilMidnight.Accounts.{User, UserToken, UserNotifier}
-
   alias UntilMidnightWeb.UserAuth
-
   alias UntilMidnight.Accounts.Follows
 
   ## Database getters
@@ -386,7 +384,7 @@ defmodule UntilMidnight.Accounts do
     Repo.get_by!(User, name: param)
   end
 
-    @doc """
+  @doc """
   Creates a follow to the given followed user, and builds
   user association to be able to preload the user when associations are loaded,
   gets users to update counts, then performs 3 Repo operations,
@@ -455,5 +453,29 @@ defmodule UntilMidnight.Accounts do
   def list_followers(user) do
     user = user |> Repo.preload(:followers)
     user.followers |> Repo.preload(:follower)
+  end
+
+  @doc """
+  Random 5 users
+  """
+  def random_5(user) do
+    following_list = get_following_list(user)
+
+    User
+    |> where([u], u.id not in ^following_list)
+    |> where([u], u.id != ^user.id)
+    |> order_by(desc: fragment("Random()"))
+    |> limit(5)
+    |> Repo.all()
+  end
+
+  @doc """
+  Returns the list of following user ids
+  """
+  def get_following_list(user) do
+    Follows
+    |> select([f], f.followed_id)
+    |> where(follower_id: ^user.id)
+    |> Repo.all()
   end
 end

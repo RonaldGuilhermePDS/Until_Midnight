@@ -1,4 +1,4 @@
-defmodule UntilMidnightWeb.PostLive.LikeComponent do
+defmodule UntilMidnightWeb.LikeComponent do
   use UntilMidnightWeb, :live_component
 
   alias UntilMidnight.Likes
@@ -25,7 +25,7 @@ defmodule UntilMidnightWeb.PostLive.LikeComponent do
     current_user = socket.assigns.current_user
     liked = socket.assigns.liked
 
-    if liked?(current_user.id, liked.likes) do
+    if Likes.liked?(current_user.id, liked.id) do
       unlike(socket, current_user.id, liked)
     else
       like(socket, current_user, liked)
@@ -52,11 +52,11 @@ defmodule UntilMidnightWeb.PostLive.LikeComponent do
 
   defp send_msg(liked) do
     msg = get_struct_msg_atom(liked)
-    send(self(), {__MODULE__, msg, liked.id})
+    send(self(), {__MODULE__, msg, liked})
   end
 
   defp get_btn_status(socket, assigns) do
-    if liked?(assigns.current_user.id, assigns.liked.likes) do
+    if assigns.current_user.id in assigns.liked.likes do
       get_socket_assigns(socket, assigns, unlike_icon(assigns))
     else
       get_socket_assigns(socket, assigns, like_icon(assigns))
@@ -93,11 +93,5 @@ defmodule UntilMidnightWeb.PostLive.LikeComponent do
     ~H"""
       <%= Heroicons.icon("hand-thumb-up", type: "solid", class: "text-white cursor-pointer") %>
     """
-  end
-
-  defp liked?(user_id, likes) do
-    Enum.any?(likes, fn l ->
-      l.user_id == user_id
-    end)
   end
 end

@@ -43,7 +43,7 @@
     <div class="space-y-2 border-t border-primary-4 p-2">
       <div class="flex space-x-2">
         <%= if @current_user do %>
-          <%= live_component UntilMidnightWeb.PostLive.LikeComponent,
+          <%= live_component UntilMidnightWeb.LikeComponent,
               id: "post-#{@post.id}",
               liked: @post,
               current_user: @current_user,

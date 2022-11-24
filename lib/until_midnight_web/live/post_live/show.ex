@@ -2,7 +2,7 @@ defmodule UntilMidnightWeb.PostLive.Show do
   use UntilMidnightWeb, :live_view
 
   alias UntilMidnight.Posts
-  alias UntilMidnightWeb.PostLive.LikeComponent
+  alias UntilMidnightWeb.LikeComponent
   alias UntilMidnight.Comments
   alias UntilMidnight.Comments.Comment
 
