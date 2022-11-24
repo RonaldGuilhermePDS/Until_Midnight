@@ -9,6 +9,6 @@ defmodule UntilMidnight.Repo.Migrations.CreateLikes do
       timestamps()
     end
 
-    create index(:likes, [:user_id])
+    create index(:likes, [:user_id, :liked_id])
   end
 end

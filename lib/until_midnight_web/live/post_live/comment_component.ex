@@ -37,7 +37,7 @@ defmodule UntilMidnightWeb.PostLive.CommentComponent do
       <div class="flex items-center space-x-2 px-2">
         <%= if @current_user do %>
           <%= live_component UntilMidnightWeb.PostLive.LikeComponent,
-              id: @comment.id,
+              id: "comment-#{@comment.id}",
               liked: @comment,
               current_user: @current_user,
               w_h: "w-5 h-5" %>
