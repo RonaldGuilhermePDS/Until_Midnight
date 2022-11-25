@@ -3,7 +3,6 @@ defmodule UntilMidnightWeb.PageLive do
 
   alias UntilMidnight.Uploaders.Avatar
   alias UntilMidnight.Accounts
-  alias UntilMidnightWeb.UserLive.FollowComponent
   alias UntilMidnight.Posts
   alias UntilMidnightWeb.LikeComponent
 
@@ -60,11 +59,6 @@ defmodule UntilMidnightWeb.PageLive do
     {:noreply,
       socket
       |> update(:user_feed, fn user_feed -> [post_feed | user_feed] end)}
-  end
-
-  @impl true
-  def handle_info({FollowComponent, :update_totals, _}, socket) do
-    {:noreply, socket}
   end
 
   defp assign_posts(socket) do
