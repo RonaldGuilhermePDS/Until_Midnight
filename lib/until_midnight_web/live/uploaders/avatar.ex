@@ -31,7 +31,7 @@ defmodule UntilMidnight.Uploaders.Avatar do
     :ok
   end
 
-  def get_thumb(avatar) when avatar == "assets/user-without-avatar.svg" do
+  def get_thumb(avatar) when avatar == "images/user-without-avatar.svg" do
     avatar
   end
 

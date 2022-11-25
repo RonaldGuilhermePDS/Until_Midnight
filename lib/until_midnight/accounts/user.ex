@@ -7,7 +7,7 @@ defmodule UntilMidnight.Accounts.User do
   @derive {Inspect,  except:  [:password]}
   schema "users" do
     field :name, :string
-    field :avatar, :string, default: "assets/user-without-avatar.svg"
+    field :avatar, :string, default: "images/user-without-avatar.svg"
     field :bio, :string
     field :followers_count, :integer, default: 0
     field :following_count, :integer, default: 0

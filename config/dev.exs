@@ -5,7 +5,7 @@ config :until_midnight, UntilMidnight.Repo,
   username: "postgres",
   password: "postgres",
   hostname: "localhost",
-  database: "until_midnight_dev",
+  database: "postgres",
   stacktrace: true,
   show_sensitive_data_on_connection_error: true,
   pool_size: 10
