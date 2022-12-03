@@ -151,6 +151,42 @@ function clean {
   touch priv/static/.keep
 }
 
+function ci:install-deps {
+  # Install Continuous Integration (CI) dependencies
+  sudo apt-get install -y curl shellcheck
+  sudo curl \
+    -L https://raw.githubusercontent.com/nickjj/wait-until/v0.2.0/wait-until \
+    -o /usr/local/bin/wait-until && sudo chmod +x /usr/local/bin/wait-until
+}
+
+function ci:test {
+  # Execute Continuous Integration (CI) pipeline
+  #
+  # It's expected that your CI environment has these tools available:
+  #   - https://github.com/koalaman/shellcheck
+  #   - https://github.com/nickjj/wait-until
+  shellcheck run bin/*
+  lint:dockerfile "${@}"
+
+  cp --no-clobber .env.example .env
+
+  docker-compose build
+  docker-compose up -d
+
+  # shellcheck disable=SC1091
+  . .env
+  wait-until "docker-compose exec -T \
+    -e PGPASSWORD=${POSTGRES_PASSWORD} postgres \
+    psql -U ${POSTGRES_USER} ${POSTGRES_USER} -c 'SELECT 1'"
+
+  docker-compose logs
+
+  lint
+  format:check
+  mix ecto.setup
+  test "${@}"
+}
+
 function help {
   printf "%s <task> [args]\n\nTasks:\n" "${0}"
 
