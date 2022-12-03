@@ -9,7 +9,7 @@ defmodule UntilMidnightWeb.UserLive.Settings do
 
   @impl true
   def mount(_params, session, socket) do
-    socket =  assign_defaults(session, socket)
+    socket = assign_defaults(session, socket)
 
     changeset = Accounts.change_user(socket.assigns.current_user)
 
@@ -17,37 +17,40 @@ defmodule UntilMidnightWeb.UserLive.Settings do
     pass_settings_path = Routes.live_path(socket, UntilMidnightWeb.UserLive.PassSettings)
 
     {:ok,
-      socket
-      |> assign(changeset: changeset)
-      |> assign(page_title: "Edit User")
-      |> assign(settings_path: settings_path, pass_settings_path: pass_settings_path)
-      |> allow_upload(:avatar,
-        accept: @extensions_whitelist,
-        max_file_size: 9_000_000,
-        progress: &handle_progress/3,
-        auto_upload: true)
-    }
+     socket
+     |> assign(changeset: changeset)
+     |> assign(page_title: "Edit User")
+     |> assign(settings_path: settings_path, pass_settings_path: pass_settings_path)
+     |> allow_upload(:avatar,
+       accept: @extensions_whitelist,
+       max_file_size: 9_000_000,
+       progress: &handle_progress/3,
+       auto_upload: true
+     )}
   end
 
   @impl true
   def handle_params(_params, uri, socket) do
     {:noreply,
-      socket
-      |> assign(current_uri_path: URI.parse(uri).path)}
+     socket
+     |> assign(current_uri_path: URI.parse(uri).path)}
   end
 
   defp handle_progress(:avatar, entry, socket) do
     if entry.done? do
       avatar = Avatar.get_avatar(socket, entry)
       user_params = %{"avatar" => avatar}
+
       case Accounts.update_user(socket.assigns.current_user, user_params) do
         {:ok, _user} ->
           Avatar.update(socket, socket.assigns.current_user.avatar, entry)
           current_user = Accounts.get_user!(socket.assigns.current_user.id)
+
           {:noreply,
-            socket
-            |> put_flash(:info, "Avatar updated successfully")
-            |> assign(current_user: current_user)}
+           socket
+           |> put_flash(:info, "Avatar updated successfully")
+           |> assign(current_user: current_user)}
+
         {:error, %Ecto.Changeset{} = changeset} ->
           {:noreply, assign(socket, :changeset, changeset)}
       end
@@ -74,9 +77,9 @@ defmodule UntilMidnightWeb.UserLive.Settings do
     case Accounts.update_user(socket.assigns.current_user, user_params) do
       {:ok, _user} ->
         {:noreply,
-          socket
-          |> put_flash(:info, "User updated successfully")
-          |> redirect(to: "/")}
+         socket
+         |> put_flash(:info, "User updated successfully")
+         |> redirect(to: "/")}
 
       {:error, %Ecto.Changeset{} = changeset} ->
         {:noreply, assign(socket, :changeset, changeset)}

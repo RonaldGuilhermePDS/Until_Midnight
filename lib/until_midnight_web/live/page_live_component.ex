@@ -7,10 +7,11 @@ defmodule UntilMidnightWeb.PageLiveComponent do
   @impl true
   def mount(socket) do
     changeset = Accounts.change_user_registration(%User{})
+
     {:ok,
-      socket
-      |> assign(changeset: changeset)
-      |> assign(trigger_submit: false)}
+     socket
+     |> assign(changeset: changeset)
+     |> assign(trigger_submit: false)}
   end
 
   @impl true
@@ -19,6 +20,7 @@ defmodule UntilMidnightWeb.PageLiveComponent do
       %User{}
       |> User.registration_changeset(user_params)
       |> Map.put(:action, :validate)
+
     {:noreply, socket |> assign(changeset: changeset)}
   end
 

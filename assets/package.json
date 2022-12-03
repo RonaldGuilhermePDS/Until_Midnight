@@ -1,13 +1,15 @@
 {
+  "private": true,
   "dependencies": {
     "alpinejs": "^2.8.2",
-    "phoenix": "file:../deps/phoenix",
-    "phoenix_html": "file:../deps/phoenix_html",
-    "phoenix_live_view": "file:../deps/phoenix_live_view"
+    "phoenix": "1.6.15",
+    "phoenix_html": "3.2.0",
+    "phoenix_live_view": "0.18.2"
   },
   "devDependencies": {
     "@tailwindcss/forms": "^0.5.3",
     "autoprefixer": "^10.4.13",
+    "esbuild": "^0.15.16",
     "postcss": "^8.4.19",
     "postcss-import": "^15.0.0",
     "tailwindcss": "^3.2.4"

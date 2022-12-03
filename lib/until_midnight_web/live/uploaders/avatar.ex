@@ -44,7 +44,7 @@ defmodule UntilMidnight.Uploaders.Avatar do
     url = String.replace_leading(old_avatar, "/uploads/", "")
     path = [@upload_directory_path, url] |> Path.join()
 
-    if File.exists?(path),  do: File.rm!(path)
+    if File.exists?(path), do: File.rm!(path)
   end
 
   defp mogrify_thumbnail(src_path, dst_path, size) do

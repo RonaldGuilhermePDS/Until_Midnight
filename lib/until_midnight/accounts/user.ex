@@ -4,16 +4,16 @@ defmodule UntilMidnight.Accounts.User do
 
   alias UntilMidnight.Accounts.Follows
 
-  @derive {Inspect,  except:  [:password]}
+  @derive {Inspect, except: [:password]}
   schema "users" do
     field :name, :string
     field :avatar, :string, default: "images/user-without-avatar.svg"
     field :bio, :string
     field :followers_count, :integer, default: 0
     field :following_count, :integer, default: 0
-    has_many :following, Follows,  foreign_key:  :follower_id
-    has_many :followers, Follows,  foreign_key:  :followed_id
-    field :posts_count,  :integer,  default:  0
+    has_many :following, Follows, foreign_key: :follower_id
+    has_many :followers, Follows, foreign_key: :followed_id
+    field :posts_count, :integer, default: 0
     has_many :posts, UntilMidnight.Posts.Post
     has_many :likes, UntilMidnight.Likes.Like
     field :email, :string
@@ -46,7 +46,9 @@ defmodule UntilMidnight.Accounts.User do
     |> cast(attrs, [:name, :avatar, :bio, :email, :password])
     |> validate_required(:name)
     |> validate_length(:name, min: 6, max: 30)
-    |> validate_format(:name, ~r/^[a-zA-Z0-9_.-]*$/, message: "Please use letters and numbers without space(only characters allowed _ . -)")
+    |> validate_format(:name, ~r/^[a-zA-Z0-9_.-]*$/,
+      message: "Please use letters and numbers without space(only characters allowed _ . -)"
+    )
     |> unique_constraint(:name)
     |> unsafe_validate_unique(:name, UntilMidnight.Repo)
     |> validate_email()

@@ -201,7 +201,7 @@ defmodule UntilMidnight.Accounts do
       {:error, %Ecto.Changeset{}}
 
   """
-  def  update_user_password(user, password, attrs) do
+  def update_user_password(user, password, attrs) do
     user
     |> User.password_changeset(attrs)
     |> User.validate_current_password(password)
@@ -364,8 +364,8 @@ defmodule UntilMidnight.Accounts do
   @doc """
   change user
   """
-  def change_user(user, attrs \\  %{}) do
-    User.registration_changeset(user, attrs,  register_user:  false)
+  def change_user(user, attrs \\ %{}) do
+    User.registration_changeset(user, attrs, register_user: false)
   end
 
   @doc """
@@ -403,7 +403,7 @@ defmodule UntilMidnight.Accounts do
     |> Ecto.Multi.update_all(:update_followers, update_followers_count, inc: [followers_count: 1])
     |> Repo.transaction()
     |> case do
-      {:ok,   %{update_followers: update_followers}} ->
+      {:ok, %{update_followers: update_followers}} ->
         {1, user} = update_followers
         hd(user)
     end
@@ -426,7 +426,7 @@ defmodule UntilMidnight.Accounts do
     |> Ecto.Multi.update_all(:update_followers, update_followers_count, inc: [followers_count: -1])
     |> Repo.transaction()
     |> case do
-      {:ok,   %{update_followers: update_followers}} ->
+      {:ok, %{update_followers: update_followers}} ->
         {1, user} = update_followers
         hd(user)
     end
@@ -436,7 +436,7 @@ defmodule UntilMidnight.Accounts do
   Returns nil if not found
   """
   def following?(follower_id, followed_id) do
-    Repo.get_by(Follows, [follower_id: follower_id, followed_id: followed_id])
+    Repo.get_by(Follows, follower_id: follower_id, followed_id: followed_id)
   end
 
   @doc """

@@ -1,14 +1,7 @@
 import Config
 
 # Configure your database
-config :until_midnight, UntilMidnight.Repo,
-  username: "postgres",
-  password: "postgres",
-  hostname: "localhost",
-  database: "postgres",
-  stacktrace: true,
-  show_sensitive_data_on_connection_error: true,
-  pool_size: 10
+config :until_midnight, UntilMidnight.Repo, show_sensitive_data_on_connection_error: true
 
 # For development, we disable any cache and enable
 # debugging and code reloading.
@@ -17,13 +10,9 @@ config :until_midnight, UntilMidnight.Repo,
 # watchers to your application. For example, we use it
 # with esbuild to bundle .js and .css sources.
 config :until_midnight, UntilMidnightWeb.Endpoint,
-  # Binding to loopback ipv4 address prevents access from other machines.
-  # Change to `ip: {0, 0, 0, 0}` to allow access from other machines.
-  http: [ip: {127, 0, 0, 1}, port: 4000],
   check_origin: false,
   code_reloader: true,
   debug_errors: true,
-  secret_key_base: "kmHVnSkzUG3DkRGuV6Ihh1takir7xX3bLAeIfPpjJjiQzpqH2P1I6nTOt1RPYTJB",
   watchers: [
     # Start the esbuild watcher by calling Esbuild.install_and_run(:default, args)
     esbuild: {Esbuild, :install_and_run, [:default, ~w(--sourcemap=inline --watch)]},

@@ -11,17 +11,16 @@ defmodule UntilMidnightWeb.PageLive do
     socket = assign_defaults(session, socket)
 
     {:ok,
-      socket
-      |> assign(page: 1, per_page: 15),
-      temporary_assigns: [user_feed: []]}
+     socket
+     |> assign(page: 1, per_page: 15), temporary_assigns: [user_feed: []]}
   end
 
   @impl true
   def handle_params(_params, _uri, socket) do
     {:noreply,
-      socket
-      |> assign(live_action: apply_action(socket.assigns.current_user))
-      |> assign_posts()}
+     socket
+     |> assign(live_action: apply_action(socket.assigns.current_user))
+     |> assign_posts()}
   end
 
   defp apply_action(current_user) do
@@ -56,9 +55,10 @@ defmodule UntilMidnightWeb.PageLive do
   @impl true
   def handle_info({LikeComponent, :update_post_likes, post}, socket) do
     post_feed = Posts.get_post_feed!(post.id)
+
     {:noreply,
-      socket
-      |> update(:user_feed, fn user_feed -> [post_feed | user_feed] end)}
+     socket
+     |> update(:user_feed, fn user_feed -> [post_feed | user_feed] end)}
   end
 
   defp assign_posts(socket) do

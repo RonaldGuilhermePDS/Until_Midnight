@@ -44,27 +44,29 @@ defmodule UntilMidnightWeb.UserLive.FollowComponent do
 
   defp get_socket_assigns(socket, assigns, btn_name, btn_styles) do
     {:ok,
-      socket
-      |> assign(assigns)
-      |> assign(follow_btn_name: btn_name)
-      |> assign(follow_btn_styles: btn_styles)}
+     socket
+     |> assign(assigns)
+     |> assign(follow_btn_name: btn_name)
+     |> assign(follow_btn_styles: btn_styles)}
   end
 
   defp follow(socket, current_user, user) do
     updated_user = Accounts.create_follow(current_user, user, current_user)
     send(self(), {__MODULE__, :update_totals, updated_user})
+
     {:noreply,
-      socket
-      |> assign(follow_btn_name: "Follow")
-      |> assign(follow_btn_styles: "text-secondary font-semibold")}
+     socket
+     |> assign(follow_btn_name: "Follow")
+     |> assign(follow_btn_styles: "text-secondary font-semibold")}
   end
 
   defp unfollow(socket, current_user_id, user_id) do
     updated_user = Accounts.unfollow(current_user_id, user_id)
     send(self(), {__MODULE__, :update_totals, updated_user})
+
     {:noreply,
-      socket
-      |> assign(follow_btn_name: "Unfollow")
-      |> assign(follow_btn_styles: "text-red-500 font-semibold")}
+     socket
+     |> assign(follow_btn_name: "Unfollow")
+     |> assign(follow_btn_styles: "text-red-500 font-semibold")}
   end
 end

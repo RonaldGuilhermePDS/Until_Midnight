@@ -12,6 +12,7 @@ defmodule UntilMidnight.Uploaders.Post do
 
   def put_image_url(socket, %Post{} = post) do
     {completed, []} = Phoenix.LiveView.uploaded_entries(socket, :photo_url)
+
     urls =
       for entry <- completed do
         Routes.static_path(socket, "/#{@upload_directory_name}/#{entry.uuid}.#{ext(entry)}")

@@ -8,9 +8,8 @@ defmodule UntilMidnightWeb.FeedComponent do
   @impl true
   def mount(socket) do
     {:ok,
-      socket
-      |> assign(changeset: Comments.change_comment(%Comment{})),
-      temporary_assigns: [comments: []]}
+     socket
+     |> assign(changeset: Comments.change_comment(%Comment{})), temporary_assigns: [comments: []]}
   end
 
   @impl true
@@ -23,10 +22,11 @@ defmodule UntilMidnightWeb.FeedComponent do
       {:noreply, socket}
     else
       comment = Comments.create_comment(current_user, post, comment_param)
+
       {:noreply,
-        socket
-        |> update(:comments, fn comments -> [comment | comments] end)
-        |> assign(changeset: Comments.change_comment(%Comment{}))}
+       socket
+       |> update(:comments, fn comments -> [comment | comments] end)
+       |> assign(changeset: Comments.change_comment(%Comment{}))}
     end
   end
 end

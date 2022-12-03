@@ -11,7 +11,7 @@ defmodule UntilMidnight.Posts do
   alias UntilMidnight.Comments.Comment
   alias UntilMidnight.Likes.Like
 
-   @doc """
+  @doc """
   Returns the list of posts.
 
   ## Examples
@@ -40,7 +40,7 @@ defmodule UntilMidnight.Posts do
     |> limit(^per_page)
     |> offset(^((page - 1) * per_page))
     |> order_by(desc: :id)
-    |> Repo.all
+    |> Repo.all()
   end
 
   @doc """
@@ -60,14 +60,17 @@ defmodule UntilMidnight.Posts do
     user = assigns.current_user
     page = assigns.page
     per_page = assigns.per_page
+
     query =
       from c in Comment,
-      select: %{id: c.id, row_number: over(row_number(), :posts_partition)},
-      windows: [posts_partition: [partition_by: :post_id, order_by: [desc: :id]]]
+        select: %{id: c.id, row_number: over(row_number(), :posts_partition)},
+        windows: [posts_partition: [partition_by: :post_id, order_by: [desc: :id]]]
+
     comments_query =
       from c in Comment,
-      join: r in subquery(query),
-      on: c.id == r.id and r.row_number <= 2
+        join: r in subquery(query),
+        on: c.id == r.id and r.row_number <= 2
+
     likes_query = Like |> select([l], l.user_id)
 
     Post
@@ -76,7 +79,11 @@ defmodule UntilMidnight.Posts do
     |> limit(^per_page)
     |> offset(^((page - 1) * per_page))
     |> order_by(desc: :id)
-    |> preload([:user, likes: ^likes_query, comments: ^{comments_query, [:user, likes: likes_query]}])
+    |> preload([
+      :user,
+      likes: ^likes_query,
+      comments: ^{comments_query, [:user, likes: likes_query]}
+    ])
     |> Repo.all()
   end
 
@@ -114,16 +121,22 @@ defmodule UntilMidnight.Posts do
   def get_post_feed!(id) do
     query =
       from c in Comment,
-      select: %{id: c.id, row_number: over(row_number(), :posts_partition)},
-      windows: [posts_partition: [partition_by: :post_id, order_by: [desc: :id]]]
+        select: %{id: c.id, row_number: over(row_number(), :posts_partition)},
+        windows: [posts_partition: [partition_by: :post_id, order_by: [desc: :id]]]
+
     comments_query =
       from c in Comment,
-      join: r in subquery(query),
-      on: c.id == r.id and r.row_number <= 2
+        join: r in subquery(query),
+        on: c.id == r.id and r.row_number <= 2
+
     likes_query = Like |> select([l], l.user_id)
 
     Post
-    |> preload([:user, likes: ^likes_query, comments: ^{comments_query, [:user, likes: likes_query]}])
+    |> preload([
+      :user,
+      likes: ^likes_query,
+      comments: ^{comments_query, [:user, likes: likes_query]}
+    ])
     |> Repo.get!(id)
   end
 

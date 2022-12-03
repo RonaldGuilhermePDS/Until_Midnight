@@ -8,7 +8,13 @@ defmodule UntilMidnight.PostsTest do
 
     import UntilMidnight.PostsFixtures
 
-    @invalid_attrs %{description: nil, photo_url: nil, total_comments: nil, total_likes: nil, url_id: nil}
+    @invalid_attrs %{
+      description: nil,
+      photo_url: nil,
+      total_comments: nil,
+      total_likes: nil,
+      url_id: nil
+    }
 
     test "list_posts/0 returns all posts" do
       post = post_fixture()
@@ -21,7 +27,13 @@ defmodule UntilMidnight.PostsTest do
     end
 
     test "create_post/1 with valid data creates a post" do
-      valid_attrs = %{description: "some description", photo_url: "some photo_url", total_comments: 42, total_likes: 42, url_id: "some url_id"}
+      valid_attrs = %{
+        description: "some description",
+        photo_url: "some photo_url",
+        total_comments: 42,
+        total_likes: 42,
+        url_id: "some url_id"
+      }
 
       assert {:ok, %Post{} = post} = Posts.create_post(valid_attrs)
       assert post.description == "some description"
@@ -37,7 +49,14 @@ defmodule UntilMidnight.PostsTest do
 
     test "update_post/2 with valid data updates the post" do
       post = post_fixture()
-      update_attrs = %{description: "some updated description", photo_url: "some updated photo_url", total_comments: 43, total_likes: 43, url_id: "some updated url_id"}
+
+      update_attrs = %{
+        description: "some updated description",
+        photo_url: "some updated photo_url",
+        total_comments: 43,
+        total_likes: 43,
+        url_id: "some updated url_id"
+      }
 
       assert {:ok, %Post{} = post} = Posts.update_post(post, update_attrs)
       assert post.description == "some updated description"

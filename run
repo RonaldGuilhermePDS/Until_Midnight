@@ -1,0 +1,164 @@
+#!/usr/bin/env bash
+
+set -o errexit
+set -o pipefail
+
+DC="${DC:-exec}"
+
+# If we're running in CI we need to disable TTY allocation for docker-compose
+# commands that enable it by default, such as exec and run.
+TTY=""
+if [[ ! -t 1 ]]; then
+  TTY="-T"
+fi
+
+# -----------------------------------------------------------------------------
+# Helper functions start with _ and aren't listed in this script's help menu.
+# -----------------------------------------------------------------------------
+
+function _dc {
+  docker-compose "${DC}" ${TTY} "${@}"
+}
+
+function _build_run_down {
+  docker-compose build
+  docker-compose run ${TTY} "${@}"
+  docker-compose down
+}
+
+function cmd {
+  # Run any commands in the web container
+  _dc web "${@}"
+}
+
+function mix {
+  # Run any mix commands
+  cmd mix "${@}"
+}
+
+function iex {
+  # Connect to an IEx session
+  cmd iex -S mix
+}
+
+function secret {
+  # Generate a random secret that can be used for secret keys and more
+  mix phx.gen.secret
+}
+
+function lint:dockerfile {
+  # Lint Dockerfile
+  docker container run --rm -i \
+    hadolint/hadolint hadolint --ignore DL3008 -t style "${@}" - < Dockerfile
+}
+
+function lint {
+  # Lint Elixir code
+  mix credo
+}
+
+function format {
+  # Run the mix formatter
+  mix format
+}
+
+function format:check {
+  # Check to see if there's an unformatted code
+  format --check-formatted
+}
+
+function test {
+  # Run test suite
+  _dc -e "MIX_ENV=test" web mix test "${@}"
+}
+
+function test:coverage {
+  # Get test coverage
+  _dc -e "MIX_ENV=test" web mix coveralls "${@}"
+}
+
+function test:coverage:details {
+  # Get test coverage details
+  _dc -e "MIX_ENV=test" web mix coveralls.detail "${@}"
+}
+
+function shell {
+  # Start a shell session in the web container
+  cmd bash "${@}"
+}
+
+function psql {
+  # Connect to PostgreSQL
+  # shellcheck disable=SC1091
+  . .env
+ _dc postgres psql -U "${POSTGRES_USER}" "${@}"
+}
+
+function mix:install {
+  # Install mix dependencies and write lock file
+  _build_run_down web mix deps.get
+}
+
+function mix:outdated {
+  # List any installed packages that are outdated
+  mix hex.outdated
+}
+
+function npm:install {
+  # Install npm dependencies and write lock file
+  _build_run_down js npm install
+}
+
+function npm:outdated {
+  # List any installed packages that are outdated
+  _dc js npm outdated
+}
+
+function npm:build:js {
+  # Build JS assets, this is meant to be run from within the assets container
+  mkdir -p ../priv/static/js
+
+  node esbuild.config.js
+}
+
+function npm:build:css {
+  # Build CSS assets, this is meant to be run from within the assets container
+  local args=()
+
+  if [ "${NODE_ENV:-}" == "production" ]; then
+    args=(--minify)
+  else
+    args=(--watch)
+  fi
+
+  mkdir -p ../priv/static/css
+  npx tailwindcss -i css/app.css -o ../priv/static/css/app.css "${args[@]}"
+}
+
+function prod:migrate {
+  # Run database migrations in production
+  cmd bin/untilmidnight eval "UntilMidnight.Release.migrate"
+}
+
+function prod:remote {
+  # Connect an IEx session to your production system
+  cmd bin/untilmidnight remote
+}
+
+function clean {
+  # Remove cache and other machine generates files
+  rm -rf priv/static/*.* priv/static/js priv/static/css priv/static/images priv/static/fonts
+  touch priv/static/.keep
+}
+
+function help {
+  printf "%s <task> [args]\n\nTasks:\n" "${0}"
+
+  compgen -A function | grep -v "^_" | cat -n
+
+  printf "\nExtended help:\n  Each task has comments for general usage\n"
+}
+
+# This idea is heavily inspired by: https://github.com/adriancooney/Taskfile
+TIMEFORMAT=$'\nTask completed in %3lR'
+time "${@:-help}"

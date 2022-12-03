@@ -1,11 +1,8 @@
-# The directory Mix will write compiled artifacts to.
-/_build/
+# The directory mix.
+/mix/
 
 # If you run "mix test --cover", coverage assets end up here.
 /cover/
-
-# The directory Mix downloads your dependencies sources to.
-/deps/
 
 # Where 3rd-party dependencies like ExDoc output generated docs.
 /doc/
@@ -35,4 +32,9 @@ npm-debug.log
 /assets/node_modules/
 
 # Ignore uploads images
-/priv/static/uploads
+/priv/static/uploads/
+
+# Ignore env files
+.env
+!.env.example
+

@@ -12,10 +12,15 @@ config :until_midnight,
 
 # Configures the endpoint
 config :until_midnight, UntilMidnightWeb.Endpoint,
-  url: [host: "localhost"],
-  render_errors: [view: UntilMidnightWeb.ErrorView, accepts: ~w(html json), layout: false],
-  pubsub_server: UntilMidnight.PubSub,
-  live_view: [signing_salt: "1MrwR/5L"]
+  http: [ip: {0, 0, 0, 0, 0, 0, 0, 0}],
+  render_errors: [
+    view: UntilMidnightWeb.ErrorView,
+    accepts: ~w(html json),
+    layout: false
+  ],
+  pubsub_server: UntilMidnight.PubSub
+
+config :until_midnight, UntilMidnight.Repo, adapter: Ecto.Adapters.Postgres
 
 # Configures the mailer
 #
@@ -49,7 +54,7 @@ config :phoenix, :json_library, Jason
 
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.
-import_config "#{config_env()}.exs"
+import_config "#{Mix.env()}.exs"
 
 # Configures tailwind css
 config :tailwind,
@@ -60,5 +65,5 @@ config :tailwind,
       --input=css/app.css
       --output=../priv/static/assets/app.css
     ),
-    cd: Path.expand("../assets", __DIR__),
+    cd: Path.expand("../assets", __DIR__)
   ]

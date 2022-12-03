@@ -12,12 +12,13 @@ defmodule UntilMidnightWeb.PostLive.New do
     socket = assign_defaults(session, socket)
 
     {:ok,
-      socket
-      |> assign(page_title: "New Post")
-      |> assign(changeset: Posts.change_post(%Post{}))
-      |> allow_upload(:photo_url,
-      accept: @extension_whitelist,
-      max_file_size: 30_000_000)}
+     socket
+     |> assign(page_title: "New Post")
+     |> assign(changeset: Posts.change_post(%Post{}))
+     |> allow_upload(:photo_url,
+       accept: @extension_whitelist,
+       max_file_size: 30_000_000
+     )}
   end
 
   @impl true
@@ -37,9 +38,11 @@ defmodule UntilMidnightWeb.PostLive.New do
         PostUploader.save(socket)
 
         {:noreply,
-          socket
-          |> put_flash(:info, "Post created successfully")
-          |> push_redirect(to: Routes.user_profile_path(socket, :index, socket.assigns.current_user.name))}
+         socket
+         |> put_flash(:info, "Post created successfully")
+         |> push_redirect(
+           to: Routes.user_profile_path(socket, :index, socket.assigns.current_user.name)
+         )}
 
       {:error, %Ecto.Changeset{} = changeset} ->
         {:noreply, assign(socket, changeset: changeset)}

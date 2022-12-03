@@ -4,28 +4,28 @@ defmodule UntilMidnightWeb.UserLive.Profile do
   alias UntilMidnight.Accounts
   alias UntilMidnight.Posts
 
-    @impl true
+  @impl true
   def mount(%{"name" => name}, session, socket) do
     socket = assign_defaults(session, socket)
     user = Accounts.profile(name)
 
     {:ok,
-      socket
-      |> assign(page: 1, per_page: 15)
-      |> assign(user: user)
-      |> assign(page_title: "@#{user.name}")
-      |> assign_posts(),
-      temporary_assigns: [posts: []]}
+     socket
+     |> assign(page: 1, per_page: 15)
+     |> assign(user: user)
+     |> assign(page_title: "@#{user.name}")
+     |> assign_posts(), temporary_assigns: [posts: []]}
   end
 
   defp assign_posts(socket) do
     socket
-    |> assign(posts:
-      Posts.list_profile_posts(
-        page: socket.assigns.page,
-        per_page: socket.assigns.per_page,
-        user_id: socket.assigns.user.id
-      )
+    |> assign(
+      posts:
+        Posts.list_profile_posts(
+          page: socket.assigns.page,
+          per_page: socket.assigns.per_page,
+          user_id: socket.assigns.user.id
+        )
     )
   end
 
@@ -55,7 +55,7 @@ defmodule UntilMidnightWeb.UserLive.Profile do
   end
 
   defp apply_action(socket, :index) do
-	  live_action = get_live_action(socket.assigns.user, socket.assigns.current_user)
+    live_action = get_live_action(socket.assigns.user, socket.assigns.current_user)
 
     socket |> assign(live_action: live_action)
   end
