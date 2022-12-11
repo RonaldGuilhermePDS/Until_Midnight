@@ -7,7 +7,7 @@
 </p>
 </a>
 
-<h2 align="center">Welcome!</h2>
+<h2 align="center">Welcome</h2>
 
 <p align="center">
 An open source social network.
