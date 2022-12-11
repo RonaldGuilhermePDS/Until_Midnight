@@ -1,6 +1,6 @@
 <p align="center">
 
-<a href="https://github.com/RonaldGuilhermePDS/Until-Midnight">
+<a href="https://github.com/RonaldGuilhermePDS/Until_Midnight">
 
 <p align="center">
 <img src="./priv/static/images/logo.svg" alt="Elixir-Logo" width="280" height="120">
@@ -13,14 +13,14 @@
 An open source social network.
 </p>
 
-<p align="center"><a href="https://github.com/RonaldGuilhermePDS/Until-Midnight/find/master"><strong><- Explore the docs -></strong></a></p>
+<p align="center"><a href="https://github.com/RonaldGuilhermePDS/Until_Midnight/find/master"><strong><- Explore the docs -></strong></a></p>
 
 <p align="center">
 <a href="https://github.com/RonaldGuilhermePDS">Creator</a>
 ·
-<a href="https://github.com/RonaldGuilhermePDS/Until-Midnight/issues">Report Bug</a>
+<a href="https://github.com/RonaldGuilhermePDS/Until_Midnight/issues">Report Bug</a>
 ·
-<a href="https://github.com/RonaldGuilhermePDS/Until-Midnight/pulls">Request Feature</a>
+<a href="https://github.com/RonaldGuilhermePDS/Until_Midnight/pulls">Request Feature</a>
 </p>
 
 <details open="open">
@@ -45,7 +45,7 @@ An open source social network.
 
 ## About
 
-<a href="https://github.com/RonaldGuilhermePDS/Until-Midnight">Until Midnight</a> is a **Project** for **Educational** purposes.
+<a href="https://github.com/RonaldGuilhermePDS/Until_Midnight">Until Midnight</a> is a **Project** for **Educational** purposes.
 
 ## Built With
 
@@ -65,7 +65,7 @@ Follow the instructions to start the project without any problems.
 
 1. Clone the Repository
 ```sh
-git clone https://github.com/RonaldGuilhermePDS/Until-Midnight.git
+git clone https://github.com/RonaldGuilhermePDS/Until_Midnight.git
 ```
 2. Create .env file
 ```sh
