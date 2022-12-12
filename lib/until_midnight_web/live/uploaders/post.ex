@@ -7,6 +7,7 @@ defmodule UntilMidnight.Uploaders.Post do
 
   defp ext(entry) do
     [ext | _] = MIME.extensions(entry.client_type)
+
     ext
   end
 

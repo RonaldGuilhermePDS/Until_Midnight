@@ -49,9 +49,11 @@ defmodule UntilMidnight.Uploaders.Avatar do
 
   defp mogrify_thumbnail(src_path, dst_path, size) do
     try do
-      Mogrify.open(src_path)
-      |> Mogrify.resize_to_limit("#{size}x#{size}")
-      |> Mogrify.save(path: dst_path)
+      image =
+        Mogrify.open(src_path)
+        |> Mogrify.resize_to_limit("#{size}x#{size}")
+
+      File.cp!(image.path, dst_path)
     rescue
       File.Error -> {:error, :invalid_src_path}
       error -> {:error, error}
