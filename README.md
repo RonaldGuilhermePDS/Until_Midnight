@@ -36,7 +36,7 @@ An open source social network.
 <a href="#getting-started">Getting Started</a>
 <ul>
 <li><a href="#installation">Installation</a></li>
-</ul>
+</ul><li><a href="#preview">Preview</a></li>
 </li>
 <li><a href="#contributing">Contributing</a></li>
 <li><a href="#license">License</a></li>
@@ -84,6 +84,12 @@ cp .env.example .env
 ```sh
 docker-compose up --build
 ```
+
+## Preview
+
+Until Midnight
+
+<img src="./Demo.gif" />
 
 ## Contributing
 
