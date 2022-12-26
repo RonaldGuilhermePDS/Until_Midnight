@@ -10,7 +10,7 @@
 <h2 align="center">Welcome</h2>
 
 <p align="center">
-An open source social network.
+An open source social network
 </p>
 
 <p align="center"><a href="https://github.com/RonaldGuilhermePDS/Until_Midnight/find/master"><strong><- Explore the docs -></strong></a></p>
