@@ -8,7 +8,7 @@ config :bcrypt_elixir, :log_rounds, 1
 # The MIX_TEST_PARTITION environment variable can be used
 # to provide built-in test partitioning in CI environment.
 # Run `mix help test` for more information.
-config :until_midnight, UntilMidnight.Repo, pool: Ecto.Adapters.SQL.Sandbox,
+config :until_midnight, UntilMidnight.Repo, pool: Ecto.Adapters.SQL.Sandbox
 
 # In test we don't send emails.
 config :until_midnight, UntilMidnight.Mailer, adapter: Swoosh.Adapters.Test
