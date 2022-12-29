@@ -9,8 +9,8 @@ defmodule UntilMidnight.MixProject do
       elixirc_paths: elixirc_paths(Mix.env()),
       compilers: [:phoenix] ++ Mix.compilers(),
       start_permanent: Mix.env() == :prod,
-      build_path: "/mix/build",
-      deps_path: "/mix/deps",
+      build_path: "./mix/build",
+      deps_path: "./mix/deps",
       aliases: aliases(),
       deps: deps(),
       test_coverage: [tool: ExCoveralls]
