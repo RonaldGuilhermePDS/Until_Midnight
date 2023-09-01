@@ -1,7 +1,15 @@
 import Config
 
 # Configure your database
-config :until_midnight, UntilMidnight.Repo, show_sensitive_data_on_connection_error: true
+config :until_midnight, UntilMidnight.Repo,
+  database: System.get_env("POSTGRES_DATABASE", "untilmidnight"),
+  username: System.get_env("POSTGRES_USER", "docker"),
+  password: System.get_env("POSTGRES_PASSWORD", "docker"),
+  hostname: System.get_env("POSTGRES_HOST", "localhost"),
+  port: String.to_integer(System.get_env("POSTGRES_PORT", "5432")),
+  stacktrace: true,
+  show_sensitive_data_on_connection_error: true,
+  pool_size: String.to_integer(System.get_env("POSTGRES_POOLSIZE", "10"))
 
 # For development, we disable any cache and enable
 # debugging and code reloading.
@@ -10,6 +18,7 @@ config :until_midnight, UntilMidnight.Repo, show_sensitive_data_on_connection_er
 # watchers to your application. For example, we use it
 # with esbuild to bundle .js and .css sources.
 config :until_midnight, UntilMidnightWeb.Endpoint,
+  http: [ip: {127, 0, 0, 1}, port: 8000],
   check_origin: false,
   code_reloader: true,
   debug_errors: true,
