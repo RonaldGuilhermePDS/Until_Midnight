@@ -41,3 +41,4 @@ npm-debug.log
 # Ignore js and css files that are produced by build.
 /priv/static/js/
 /priv/static/css/
+/priv/static/images/
