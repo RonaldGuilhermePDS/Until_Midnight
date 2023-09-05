@@ -18,7 +18,8 @@ config :until_midnight, UntilMidnightWeb.Endpoint,
     accepts: ~w(html json),
     layout: false
   ],
-  pubsub_server: UntilMidnight.PubSub
+  pubsub_server: UntilMidnight.PubSub,
+  live_view: [signing_salt: "pFLwlK8R"]
 
 config :until_midnight, UntilMidnight.Repo, adapter: Ecto.Adapters.Postgres
 
@@ -44,6 +45,18 @@ config :esbuild,
     env: %{"NODE_PATH" => Path.expand("../deps", __DIR__)}
   ]
 
+# Configures tailwind css
+  config :tailwind,
+    version: "3.1.6",
+    default: [
+      args: ~w(
+        --config=tailwind.config.js
+        --input=css/app.css
+        --output=../priv/static/assets/app.css
+      ),
+      cd: Path.expand("../assets", __DIR__)
+    ]
+
 # Configures Elixir's Logger
 config :logger, :console,
   format: "$time $metadata[$level] $message\n",
@@ -55,15 +68,3 @@ config :phoenix, :json_library, Jason
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.
 import_config "#{config_env()}.exs"
-
-# Configures tailwind css
-config :tailwind,
-  version: "3.1.6",
-  default: [
-    args: ~w(
-      --config=tailwind.config.js
-      --input=css/app.css
-      --output=../priv/static/assets/app.css
-    ),
-    cd: Path.expand("../assets", __DIR__)
-  ]
