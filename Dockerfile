@@ -30,7 +30,7 @@ RUN if [ "${NODE_ENV}" != "development" ]; then \
 
 ###############################################################################
 
-FROM elixir:1.14.0-slim AS dev
+FROM elixir:1.15.0-slim AS dev
 
 WORKDIR /app
 
@@ -54,7 +54,8 @@ ENV MIX_ENV="${MIX_ENV}" \
     USER="elixir"
 
 COPY --chown=elixir:elixir mix.* ./
-RUN if [ "${MIX_ENV}" = "dev" ]; then \
+RUN mix local.hex; \
+  if [ "${MIX_ENV}" = "dev" ]; then \
   mix deps.get; else mix deps.get --only "${MIX_ENV}"; fi
 
 COPY --chown=elixir:elixir config/config.exs config/"${MIX_ENV}".exs config/
@@ -75,7 +76,7 @@ CMD ["iex", "-S", "mix", "phx.server"]
 
 ###############################################################################
 
-FROM elixir:1.14.0-slim AS prod
+FROM elixir:1.15.0-slim AS prod
 
 WORKDIR /app
 
