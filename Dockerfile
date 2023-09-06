@@ -96,7 +96,7 @@ USER elixir
 ENV USER=elixir
 
 COPY --chown=elixir:elixir --from=dev /public /public
-COPY --chown=elixir:elixir --from=dev /mix/build/prod/rel/untilmidnight ./
+COPY --chown=elixir:elixir --from=dev /mix/build/prod/rel/until_midnight ./
 COPY --chown=elixir:elixir bin/docker-entrypoint-web bin/
 
 ENTRYPOINT ["/app/bin/docker-entrypoint-web"]
