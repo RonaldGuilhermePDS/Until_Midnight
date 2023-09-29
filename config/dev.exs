@@ -18,7 +18,7 @@ config :until_midnight, UntilMidnight.Repo,
 # watchers to your application. For example, we use it
 # with esbuild to bundle .js and .css sources.
 config :until_midnight, UntilMidnightWeb.Endpoint,
-  http: [ip: {127, 0, 0, 1}, port: 8000],
+  http: [ip: {0, 0, 0, 0}, port: 8000],
   check_origin: false,
   code_reloader: true,
   debug_errors: true,
